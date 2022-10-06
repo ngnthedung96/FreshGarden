@@ -1,0 +1,286 @@
+.cart-section {
+  margin-top: 55px;
+  text-align: center;
+  position: relative;
+}
+
+.cart-content {
+  position: relative;
+}
+
+.line {
+  position: absolute;
+  bottom: -40%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10%;
+  height: 5px;
+  background-color: black;
+}
+
+.table-order-img {
+  width: 5%;
+  height: 5%;
+}
+
+.table-order-img img {
+  width: 100%;
+}
+
+
+
+td,
+th {
+  padding: 8px;
+  padding: .5rem;
+}
+
+th {
+  text-align: left;
+  font-weight: 300;
+
+}
+
+td {
+  font-family: 'Avenir Next', 'Segoe UI', 'Lucida Grande', sans-serif;
+}
+
+.table {
+  width: 100%;
+  padding: 16px;
+  padding: 1rem;
+}
+
+.table__content {
+  text-align: left;
+  border-top: 2px solid #b6d032;
+}
+
+.table-order {
+  margin-top: 55px;
+  font-size: 180%;
+}
+
+.numberOrder input {
+  display: inline;
+  padding: 5px 5px;
+  outline: none;
+  border: 2px solid grey;
+  width: 5%;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+@media (max-width: 32rem) {
+  .table__heading {
+    display: none;
+  }
+
+  .table__content {
+    display: block;
+    padding: .5rem 0;
+  }
+
+  .table__row {
+    margin: .25rem 1rem;
+    padding: .5rem 0;
+    display: block;
+    border-bottom: 2px solid #FFC842;
+  }
+
+  .table__content:before {
+    content: attr(data-heading);
+    display: inline-block;
+    width: 5rem;
+    margin-right: .5rem;
+    color: #999;
+    font-size: .75rem;
+    font-weight: 700;
+    font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+}
+
+
+.cart-footer {
+  margin-top: 55px;
+  font-size: 200%;
+}
+
+.left {
+  width: 100%;
+}
+
+.left h3 {
+  text-align: left;
+}
+
+.left textarea {
+  outline: none;
+  border: none;
+  background-color: #ededed;
+  margin-top: 30px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+  width: 100%;
+  padding: 15px;
+}
+
+.right {
+  position: relative;
+  text-align: left;
+}
+
+.right p {
+  display: inline-block;
+  margin: 20px 0px;
+}
+
+.right .code {
+  margin-top: -10px;
+  margin-bottom: 10px;
+  padding: 10px;
+  display: block;
+}
+
+.total-price {
+  font-size: 150%;
+  font-weight: 600;
+  color: #b6d032;
+}
+
+.right>h3 {
+  text-align: left;
+}
+
+.right p {
+  display: block;
+}
+
+.right .title-date-time {
+  color: red;
+}
+
+.btn-buy {
+  margin-top: 35px;
+  transform: translateY(100%);
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  display: inline-block;
+  padding: 10px;
+  background-color: #343a40;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.btn-buy:hover {
+  background-color: #25282c;
+}
+
+.date,
+.time {
+  display: block;
+  padding: 5px;
+  margin: 10px 0px;
+  width: 200px;
+}
+
+.table-order-delete {
+  cursor: pointer;
+}
+
+.discount {
+  color: #b6d032;
+}
+
+footer {
+  margin-top: 200px !important;
+}
+
+/* ---------select--------------- */
+.select-setion {
+  text-align: start;
+}
+
+.select-header {
+  width: 100%;
+}
+
+.select-header .address {
+  padding: 10px;
+  width: 90%;
+}
+
+/* The container must be positioned relative: */
+.custom-select {
+  position: relative;
+  font-family: Arial;
+  display: inline-block;
+  font-size: 90%;
+}
+
+.custom-select select {
+  display: none;
+  color: black;
+  /*hide original SELECT element: */
+}
+
+.select-selected {
+  /* background-color: DodgerBlue; */
+}
+
+/* Style the arrow inside the select element: */
+.select-selected:after {
+  position: absolute;
+  content: "";
+  top: 14px;
+  right: 10px;
+  width: 0;
+  height: 0;
+  border: 6px solid transparent;
+  border-color: #fff transparent transparent transparent;
+}
+
+/* Point the arrow upwards when the select box is open (active): */
+.select-selected.select-arrow-active:after {
+  border-color: transparent transparent #fff transparent;
+  top: 7px;
+}
+
+/* style the items (options), including the selected item: */
+.select-items div,
+.select-selected {
+  color: black;
+  padding: 8px 16px;
+  border: 1px solid transparent;
+  border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+  cursor: pointer;
+}
+
+/* Style items (options): */
+.select-items {
+  position: absolute;
+  background-color: white;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 99;
+  height: 200px;
+  overflow: auto;
+}
+
+/* Hide the items when the select box is closed: */
+.select-hide {
+  display: none;
+}
+
+.select-items div:hover,
+.same-as-selected {
+  background-color: rgba(0, 0, 0, 0.1);
+}

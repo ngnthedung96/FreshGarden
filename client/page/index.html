@@ -1,0 +1,275 @@
+
+<!DOCTYPE html>
+<html>
+ 
+<head>
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/color.css">
+    <link rel="stylesheet" href="../css/home.css">
+    <link rel="stylesheet" href="../css/grid.css">
+    <script src="https://kit.fontawesome.com/025c1ecb3f.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Alata&family=Roboto:wght@100;300;400;700;900&display=swap"
+        rel="stylesheet">
+    <title>Fresh Garden</title>
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+ 
+ 
+</head>
+ 
+<body>
+    <header>
+        <div class="row1">
+            <div class="header-logo">
+                <a href="">
+                    <img src="https://theme.hstatic.net/200000411281/1000827595/14/logo.png?v=158" alt="">
+                </a>
+            </div>
+            <div class="header-nav">
+                <ul>
+                    <li class="login-register-nav">
+                        <a href="./login.html" class="login">
+                            <span>Đăng nhập</span>
+                        </a>
+                        <a href="./login.html" class="register">
+                            <span>Đăng ký</span>
+                        </a>
+                    </li>
+                    <a href="#">
+                        <li>
+                            <i class="fa-solid fa-phone-volume"></i>
+                            <span>024 3856 3856</span>
+                        </li>
+                    </a>
+                    <a href="#" class="fresh" >
+                        <li>
+                            <i class="fa-solid fa-envelope"></i>
+                            <span>infor@freshgarden.vn</span>
+                        </li>
+                    </a>
+                    <a href="#">
+                        <li>
+                            <i class="fa-solid fa-location-dot"></i>
+                            <span> 46 An Dương, Hà Nội</span>
+                        </li>
+                    </a>
+                    <a href="#" class="header-nav__btn search-nav-btn">
+                        <li><i class="fa-solid fa-magnifying-glass"></i> </li>
+                    </a>
+                    <li class="user-logout-nav hide">
+                        <a href="#" class="user-name">
+                            <span>ngnthedung</span>
+                        </a>
+                        <a href="#" class="log-out__btn">
+                            <span>Đăng Xuất</span>
+                        </a>
+                    </li>
+                    <a href="./cart.html">
+                        <li class="header-nav__btn cart-shopping">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                        </li>
+                    </a>
+                    <a href="#" class="header-nav__btn js-category-nav__btn">
+                        <li><i class="fa-solid fa-bars"></i></li>
+                    </a>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <div class="nsContact-nav">
+            <a class="nsContact-nav-item ">
+                <img src="https://file.hstatic.net/200000259495/file/zalo_d9dc3417eb744b91a44643f29b8c7161.svg" alt="">
+                <span>Zalo</span>
+            </a>
+            <a class="nsContact-nav-item">
+                <img src="https://file.hstatic.net/200000259495/file/messager_208d7389c4ac46b5a01afad457684cd6.svg"
+                    alt="">
+                <span>Messenger</span>
+            </a>
+            <a class="nsContact-nav-item">
+                <img src="https://file.hstatic.net/200000259495/file/instagram_81b9ae8829a940a7aa5b7926152ed378.svg"
+                    alt="">
+                <span>Instagram</span>
+            </a>
+        </div>
+        <div class="contact-nav">
+            <a href="">
+                <i class="fa-solid fa-comments"></i>
+                <span>Liên hệ</span>
+            </a>
+        </div>
+        <div class="category-nav-section">
+            <div class="js-category-nav">
+                <ul>
+                    <li> <a href="#"><i class="fa-solid fa-right-long js-category-nav__back-btn"></i></a></li>
+                    <li><a href="">Trang chủ</a></li>
+                    <li><a href="">Giới thiệu</a></li>
+                    <li>
+                        <ul class="category-nav__products flex">
+                            <a class="allProducts" href="">Sản phẩm</a>
+                            <a href="#"><i class="fa-solid fa-angle-down js-category-nav__product-btn"></i></a>
+                        </ul>
+                        <ul class="category-sub-nav__products">
+                            <li class="nav"><a href="#"> Pizza</a></li>
+                            <li class="nav"><a href="#"> Bánh Mì</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="">Tin tức</a></li>
+                    <li><a href="">Thẻ tích điểm</a></li>
+                    <li><a href="">Hệ thống cửa hàng</a></li>
+                    <li><a href="">Liên hệ</a></li>
+                    <li><a href="./history.html">Lịch sử</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="search-nav-section">
+            <div class="row2">
+                <div class="search-nav-content">
+                    <div class="search-tools">
+                        <i class="fa-solid fa-xmark btn-close-nav"></i>
+                        <input type="text" class="input-search" placeholder="Tìm kiếm sản phẩm">
+                        <i class="fa-solid fa-magnifying-glass btn-search-nav"></i>
+                    </div>
+                    <div class="search-results">
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="slider-section">
+        <div style="background-image:url('https://theme.hstatic.net/200000411281/1000827595/14/home_slider_image_3.jpg?v=158') ;"
+            class="slider-container">
+            <div class="row2 slider-content">
+                <div class="slider-nav-btn">
+                    <i class='bx bx-chevron-left btn-left'></i>
+                    <i class='bx bx-chevron-right btn-right'></i>
+                </div>
+            </div>
+        </div>
+        <div class="slider-footer">
+            <div class="slider-footer__img">
+                <img data-set="0" class="borderSlider"
+                    src="https://theme.hstatic.net/200000411281/1000827595/14/home_slider_image_3.jpg?v=158" alt="">
+            </div>
+            <div class="slider-footer__img">
+                <img data-set="1"
+                    src="https://theme.hstatic.net/200000411281/1000827595/14/home_slider_image_1.jpg?v=193" alt="">
+            </div>
+            <div class="slider-footer__img">
+                <img data-set="2"
+                    src="https://theme.hstatic.net/200000411281/1000827595/14/home_slider_image_2.jpg?v=193" alt="">
+            </div>
+        </div>
+    </div>
+    <div class="outstanding-products">
+        <div class="row2">
+            <div class="outstanding-products__header">
+                <img class="section-title__icon"
+                    src="https://theme.hstatic.net/200000411281/1000827595/14/icon-title-home-featured-product.png?v=176"
+                    alt="">
+                <h1>Sản phẩm nổi bật</h1>
+                <h2>Cập nhật về những sản phẩm nổi bật nhất từ Fresh Garden</h2>
+            </div>
+            <div class="outstanding-products__content flex">
+                <div class="oustanding-product">
+ 
+                </div>
+                <div class="oustanding-product">
+ 
+                </div>
+                <div class="oustanding-product">
+ 
+                </div>
+                <div class="oustanding-product">
+ 
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="products-section">
+        <div class="row2">
+            <div class="products-header">
+                <img class="section-title__icon"
+                    src="https://theme.hstatic.net/200000411281/1000827595/14/icon-title-home-featured-product.png?v=176"
+                    alt="">
+                <h1>Sản phẩm</h1>
+                <h2>Chào mừng bạn đến với bộ sưu tập bánh Fresh Garden</h2>
+            </div>
+            <div class="products-content">
+                <div class="js-products-content__item">
+                    <div class="col span-1-of-4">
+                        <div class="products-content__product">
+ 
+                        </div>
+                        <div class="products-content__product">
+ 
+                        </div>
+                    </div>
+                    <div class="col span-1-of-4">
+                        <div class="products-content__product">
+ 
+                        </div>
+                        <div class="products-content__product">
+ 
+                        </div>
+                    </div>
+                    <div class="col span-1-of-4">
+                        <div class="products-content__product">
+ 
+                        </div>
+                        <div class="products-content__product">
+                            <a href="" data-set="6">
+ 
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col span-1-of-4">
+                        <div class="products-content__product">
+ 
+                        </div>
+                        <div class="products-content__product">
+ 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+ 
+    <div id="toast">
+ 
+    </div>
+    <footer>
+        <div class="row2">
+            <div class="footer-contact">
+                <h3>
+                    Thông tin liên hệ
+                </h3>
+                <div class="address">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <p>Công ty TNHH PHD - Giấy ĐKKD mã số: 0103833363 Cấp ngày: 14/05/2021 - Mã số thuế: 0103833363</p>
+                </div>
+                <div class="phone-number">
+                    <i class="fa-solid fa-phone-flip"></i>
+                    <p>024 3856 3856</p>
+                </div>
+                <div class="mail">
+                    <i class="fa-solid fa-envelope"></i>
+                    <p>46 An Dương, Yên Phụ, Tây Hồ, Hà Nội.</p>
+                </div>
+            </div>
+            <div class="footer-nav">
+                <a href="">Hướng dẫn mua hàng, thanh toán</a>
+                <a href="">Chính sách vận chuyển</a>
+                <a href="">Chính sách đổi trả</a>
+                <a href="">Chính sách an toàn thực phẩm</a>
+            </div>
+        </div>
+    </footer>
+</body>
+<script type="module" src="../js/home.js"></script>
+ 
+</html>
+

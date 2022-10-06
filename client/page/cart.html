@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="../css/cart.css">
+    <link rel="stylesheet" href="../css/grid.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <script src="https://kit.fontawesome.com/025c1ecb3f.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Alata&family=Roboto:wght@100;300;400;700;900&display=swap"
+        rel="stylesheet">
+    <title>Cart</title>
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+</head>
+
+<body>
+    <header>
+        <div class="row1">
+            <div class="header-logo">
+                <a href="./index.html">
+                    <img src="https://theme.hstatic.net/200000411281/1000827595/14/logo.png?v=158" alt="">
+                </a>
+            </div>
+            <div class="header-nav">
+                <ul>
+                    <li class="login-register-nav">
+                        <a href="./page/login.html" class="login">
+                            <span>Đăng nhập</span>
+                        </a>
+                        <a href="./page/login.html" class="register">
+                            <span>Đăng ký</span>
+                        </a>
+                    </li>
+                    <a href="#">
+                        <li>
+                            <i class="fa-solid fa-phone-volume"></i>
+                            <span>024 3856 3856</span>
+                        </li>
+                    </a>
+                    <a href="#">
+                        <li>
+                            <i class="fa-solid fa-envelope"></i>
+                            <span>infor@freshgarden.vn</span>
+                        </li>
+                    </a>
+                    <a href="#">
+                        <li>
+                            <i class="fa-solid fa-location-dot"></i>
+                            <span> 46 An Dương, Hà Nội</span>
+                        </li>
+                    </a>
+                    <a href="#" class="header-nav__btn">
+                        <li><i class="fa-solid fa-magnifying-glass"></i> </li>
+                    </a>
+                    <li class="user-logout-nav hide">
+                        <a href="#" class="user-name">
+                            <span>ngnthedung</span>
+                        </a>
+                        <a href="#" class="log-out__btn">
+                            <span>Đăng Xuất</span>
+                        </a>
+                    </li>
+                    <a href="#">
+                        <li class="header-nav__btn cart-shopping">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                        </li>
+                    </a>
+                    <a href="#" class="header-nav__btn js-category-nav__btn">
+                        <li><i class="fa-solid fa-bars"></i></li>
+                    </a>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <div class="nsContact-nav">
+            <a class="nsContact-nav-item ">
+                <img src="https://file.hstatic.net/200000259495/file/zalo_d9dc3417eb744b91a44643f29b8c7161.svg" alt="">
+                <span>Zalo</span>
+            </a>
+            <a class="nsContact-nav-item">
+                <img src="https://file.hstatic.net/200000259495/file/messager_208d7389c4ac46b5a01afad457684cd6.svg"
+                    alt="">
+                <span>Messenger</span>
+            </a>
+            <a class="nsContact-nav-item">
+                <img src="https://file.hstatic.net/200000259495/file/instagram_81b9ae8829a940a7aa5b7926152ed378.svg"
+                    alt="">
+                <span>Instagram</span>
+            </a>
+        </div>
+        <div class="contact-nav">
+            <a href="">
+                <i class="fa-solid fa-comments"></i>
+                <span>Liên hệ</span>
+            </a>
+        </div>
+        <div class="category-nav-section">
+            <div class="js-category-nav">
+                <ul>
+                    <li> <a href="#"><i class="fa-solid fa-right-long js-category-nav__back-btn"></i></a></li>
+                    <li><a href="">Trang chủ</a></li>
+                    <li><a href="">Giới thiệu</a></li>
+                    <li>
+                        <ul class="category-nav__products flex">
+                            <a href="">Sản phẩm</a>
+                            <a href="#"><i class="fa-solid fa-angle-down js-category-nav__product-btn"></i></a>
+                        </ul>
+                        <ul class="category-sub-nav__products">
+                            <li><a href=""> Bánh kem</a></li>
+                            <li><a href=""> Bánh mì</a></li>
+                            <li><a href=""> Bánh ngọt</a></li>
+                            <li><a href=""> Bánh tráng miệng</a> </li>
+                            <li><a href=""> Bánh kem</a></li>
+                            <li><a href=""> Bánh mì</a></li>
+                            <li><a href=""> Bánh ngọt</a></li>
+                            <li><a href=""> Bánh tráng miệng</a> </li>
+                        </ul>
+                    </li>
+                    <li><a href="">Tin tức</a></li>
+                    <li><a href="">Thẻ tích điểm</a></li>
+                    <li><a href="">Hệ thống cửa hàng</a></li>
+                    <li><a href="">Liên hệ</a></li>
+                    <li><a href="./history.html">Lịch sử</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <div class="cart-section">
+        <div class="row2">
+            <div class="cart-content">
+                <h1>Giỏ hàng của bạn</h1>
+                <h2>Giỏ hàng của bạn đang trống</h2>
+                <div class="line"></div>
+            </div>
+            <table class="table table-order">
+                <tr>
+                    <th class="table__heading"></th>
+                    <th class="table__heading">Tên Sản phẩm</th>
+                    <th class="table__heading">Giá</th>
+                    <th class="table__heading">Số lượng</th>
+                    <th class="table__heading">Thành tiền</th>
+                </tr>
+            </table>
+            <div class="clearfix"></div>
+            <div class="cart-footer">
+                <div class="col span-2-of-3 left">
+                    <h3>Ghi chú đơn hàng</h3>
+                    <textarea placeholder="Thông tin người được tặng (nếu có); thông tin chữ viết trên bánh..." name=""
+                        id="note" cols="30" rows="10"></textarea>
+                    <div class="select-setion">
+                        <div class="select-header">
+                            <p>Địa chỉ giao hàng</p>
+                            <input type="text" class="address" placeholder="Địa chỉ">
+
+                        </div>
+                        <div class="custom-select" id="cities" style="width:200px;">
+                            <select>
+
+                            </select>
+                            <div class="select-selected">
+
+                            </div>
+                        </div>
+                        <div class="custom-select" id="districts" style="width:200px;">
+                            <select>
+                                <option value="0">Quận huyện</option>
+                            </select>
+                            <div class="select-selected">
+
+                            </div>
+                        </div>
+                        <div class="custom-select" id="communes" style="width:200px;">
+                            <select>
+                                <option value="0">Quận huyện</option>
+                            </select>
+                            <div class="select-selected">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col span-1-of-3 right">
+                    <h3>Thông tin đơn hàng</h3>
+                    <p>Tổng tiền hàng:</p>
+                    <p class="total-products-price price"></p>
+                    <p>Tổng tiền phí vận chuyển:</p>
+                    <p class="ship-fee price"></p>
+                    <p class="discount-content hide">Voucher giảm giá:</p>
+                    <p class="discount hide"></p>
+                    <p>Tổng thanh toán:</p>
+
+                    <p class="old-total-price price hide"></p>
+                    <p class="total-price price"></p>
+                    <input placeholder="Nhập mã giảm giá" class="code" type="text" id="code" />
+                    <h3 class="title-date-time">Thời gian giao hàng</h3>
+                    <input placeholder="Chọn ngày nhận" class="date" type="text" onfocus="(this.type='date')"
+                        onblur="(this.type='text')" id="date" />
+                    <input placeholder="Chọn giờ nhận" class="time" type="text" onfocus="(this.type='time')"
+                        onblur="(this.type='text')" id="time" />
+                    <a href="#" class="btn-buy">THANH TOÁN</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="toast">
+
+    </div>
+    <div class="clearfix"></div>
+    <footer>
+        <div class="row2">
+            <div class="footer-contact">
+                <h3>
+                    Thông tin liên hệ
+                </h3>
+                <div class="address">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <p>Công ty TNHH PHD - Giấy ĐKKD mã số: 0103833363 Cấp ngày: 14/05/2021 - Mã số thuế: 0103833363</p>
+                </div>
+                <div class="phone-number">
+                    <i class="fa-solid fa-phone-flip"></i>
+                    <p>024 3856 3856</p>
+                </div>
+                <div class="mail">
+                    <i class="fa-solid fa-envelope"></i>
+                    <p>46 An Dương, Yên Phụ, Tây Hồ, Hà Nội.</p>
+                </div>
+            </div>
+            <div class="footer-nav">
+                <a href="">Hướng dẫn mua hàng, thanh toán</a>
+                <a href="">Chính sách vận chuyển</a>
+                <a href="">Chính sách đổi trả</a>
+                <a href="">Chính sách an toàn thực phẩm</a>
+            </div>
+        </div>
+    </footer>
+</body>
+<script type="module" src="../js/cart.js"></script>
+<script type="module" src="../js/base.js"></script>
+
+</html>

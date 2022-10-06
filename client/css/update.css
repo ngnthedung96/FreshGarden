@@ -1,0 +1,4 @@
+input[type="password" i] {
+  -webkit-text-security: disc !important;
+  padding: 1px 2px;
+}

@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Quixlab - Bootstrap Admin Dashboard Template by Themefisher.com</title>
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
+    <!-- Custom Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/base.css">
+    <!-- use version 0.18.10 -->
+    <script src="./js/plugins-init/shim.min.js"></script>
+    <script src="./js/plugins-init/xlsx.core.min.js"></script>
+    <script src="./js/plugins-init/FileSaver.js"></script>
+    <script src="./js/plugins-init/FileSaver.min.js"></script>
+    <script src="https://kit.fontawesome.com/025c1ecb3f.js" crossorigin="anonymous"></script>
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+
+
+
+</head>
+
+<body>
+
+    <!--*******************
+        Preloader start
+    ********************-->
+    <div id="preloader">
+        <div class="loader">
+            <svg class="circular" viewBox="25 25 50 50">
+                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10" />
+            </svg>
+        </div>
+    </div>
+    <!--*******************
+        Preloader end
+    ********************-->
+
+
+    <!--**********************************
+        Main wrapper start
+    ***********************************-->
+    <div id="main-wrapper">
+
+        <!--**********************************
+            Nav header start
+        ***********************************-->
+        <div class="nav-header">
+            <div class="brand-logo">
+                <a href="index.html">
+                    <b class="logo-abbr"><img src="images/logo.png" alt=""> </b>
+                    <span class="logo-compact"><img src="./images/logo-compact.png" alt=""></span>
+                    <span class="brand-title">
+                        <img src="https://theme.hstatic.net/200000411281/1000827595/14/logo.png?v=158" alt="">
+                    </span>
+                </a>
+            </div>
+        </div>
+        <!--**********************************
+            Nav header end
+        ***********************************-->
+
+        <!--**********************************
+            Header start
+        ***********************************-->
+        <div class="header">
+            <div class="header-content clearfix">
+
+                <div class="nav-control">
+                    <div class="hamburger">
+                        <span class="toggle-icon"><i class="icon-menu"></i></span>
+                    </div>
+                </div>
+                <div class="header-left">
+                    <div class="input-group icons">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-transparent border-0 pr-2 pr-sm-3" id="basic-addon1"><i
+                                    class="mdi mdi-magnify"></i></span>
+                        </div>
+                        <input type="search" class="form-control" placeholder="Search Dashboard"
+                            aria-label="Search Dashboard">
+                        <div class="drop-down animated flipInX d-md-none">
+                            <form action="#">
+                                <input type="text" class="form-control" placeholder="Search">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="header-right">
+                    <ul class="clearfix">
+                        <li class="icons dropdown hide">
+                            <div class="user-email c-pointer position-relative" data-toggle="dropdown">
+                                <span></span>
+                            </div>
+                            <div class="drop-down dropdown-profile animated fadeIn dropdown-menu">
+                                <div class="dropdown-content-body">
+                                    <ul>
+                                        <li>
+                                            <a href="app-profile.html"><i class="icon-user"></i>
+                                                <span>Profile</span></a>
+                                        </li>
+                                        <hr class="my-2">
+                                        <li><a href="#" class="log-out__btn"><i class="icon-key"></i>
+                                                <span>Logout</span></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="icons dropdown default">
+                            <div class="user-email c-pointer position-relative" data-toggle="dropdown">
+                                <span>User</span>
+                            </div>
+                            <div class="drop-down dropdown-profile animated fadeIn dropdown-menu">
+                                <div class="dropdown-content-body">
+                                    <ul>
+                                        <li>
+                                            <a href="./page-register.html"><i class="icon-user"></i>
+                                                <span> Register</span></a>
+                                        </li>
+                                        <hr class="my-2">
+                                        <li>
+                                            <a href="./page-login.html"><i class="icon-user"></i>
+                                                <span>Login</span></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!--**********************************
+            Header end ti-comment-alt
+        ***********************************-->
+
+        <!--**********************************
+            Sidebar start
+        ***********************************-->
+        <div class="nk-sidebar">
+            <div class="nk-nav-scroll">
+                <ul class="metismenu" id="menu">
+                    <li class="nav-label">Dashboard</li>
+                    <li>
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-speedometer menu-icon"></i><span class="nav-text">Dashboard</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="./index.html">Home 1</a></li>
+                            <!-- <li><a href="./index-2.html">Home 2</a></li> -->
+                        </ul>
+                    </li>
+                    <li class="nav-label">Quản lý</li>
+                    <li>
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-menu menu-icon"></i><span class="nav-text">Users</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="./table-users.html" aria-expanded="false">Khách hàng</a></li>
+                            <li><a href="./table-add-user.html" aria-expanded="false">Thêm khách hàng</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-menu menu-icon"></i><span class="nav-text">Products</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="./table-products.html" aria-expanded="false">Sản phẩm</a></li>
+                            <li><a href="./table-add-product.html" aria-expanded="false">Thêm sản phẩm</a></li>
+                            <li><a href="./table-edit-product.html" aria-expanded="false">Sửa sản phẩm</a></li>
+                            <li><a href="./table-delete-product.html" aria-expanded="false">Xóa sản phẩm</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-menu menu-icon"></i><span class="nav-text">Orders</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="./table-orders.html" aria-expanded="false">Đơn hàng</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-menu menu-icon"></i><span class="nav-text">Sales</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="./table-codes.html" aria-expanded="false">Mã giảm giá</a></li>
+                            <li><a href="./table-add-code.html" aria-expanded="false">Thêm mã giảm giá</a></li>
+                           
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!--**********************************
+            Sidebar end
+        ***********************************-->
+
+        <!--**********************************
+            Content body start
+        ***********************************-->
+        <div class="content-body">
+            <!-- row -->
+            <div class="row page-titles mx-0">
+                <div class="col p-md-0">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="javascript:void(0)">Dashboard</a></li>
+                        <li class="breadcrumb-item active"><a href="javascript:void(0)">Order</a></li>
+                    </ol>
+                </div>
+            </div>
+            <a href="#" class="excel">Tải excel</a>
+
+            <div class="container-fluid table-orders">
+                <div class="row">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Đơn hàng</h4>
+                            <div class="table-responsive">
+                                <table class="table header-border" id="table_id" class="display">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th class="hide"></th>
+                                            <th>Khách hàng</th>
+                                            <th>Ngày đặt</th>
+                                            <th>Sản phẩm</th>
+                                            <th>Tổng tiền</th>
+                                            <th class = "hide"></th>
+                                            <th>Chi tiết</th>
+                                            <th>Ngày nhận</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- #/ container -->
+        </div>
+        <!--**********************************
+            Content body end
+        ***********************************-->
+        <div class="modal-detail-section">
+            <div class="modal-detail-content">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Sản phẩm</th>
+                            <th>Giá gốc</th>
+                            <th>Giá bán</th>
+                            <th>Số lượng</th>
+                            <th>Thành tiền</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                       
+                    </tbody>
+                </table>
+                <div class="footer-modal">
+                    <div class="fee">
+                        <p>Phí nhân công</p>
+                        <p class="price"></p>
+                    </div>
+                    <div class="ship">
+                        <p>Phí ship</p>
+                        <p class="price"></p>
+                    </div>
+                    <div class="code">
+                        <p>Mã giảm giá</p>
+                        <p class="price"></p>
+                    </div>
+                    <div class="total-price">
+                        <p>Tổng tiền</p>
+                        <p class="price"></p>
+                    </div>
+                    <div class="total-profit">
+                        <p>Tổng lợi nhuận</p>
+                        <p class="price"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--**********************************
+        Main wrapper end
+    ***********************************-->
+
+    <!--**********************************
+        Scripts
+    ***********************************-->
+    
+    <script src="plugins/common/common.min.js"></script>
+    <script src="js/custom.min.js"></script>
+    <script src="js/settings.js"></script>
+    <script src="js/gleek.js"></script>
+    <script src="js/styleSwitcher.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
+<script type="module" src="./js/table-orders.js"></script>
+
+</body>
+
+</html>

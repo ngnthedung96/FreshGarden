@@ -1,0 +1,150 @@
+/* ------------product----------------- */
+.products {
+  position: relative;
+  margin: 55px 0px
+}
+
+.products .left {}
+
+.left .main-img img {
+  width: 80%;
+}
+
+.left .sub-img img {
+  width: 20%;
+  border: 2px solid transparent;
+  margin: 10px 10px 10px 0px;
+}
+
+.products .right {
+  padding: 10% 0px 0px 50px;
+  font-size: 120%;
+  position: relative;
+}
+
+.right h3 {
+  font-size: 200%;
+}
+
+.right .number {
+  margin-top: 20px;
+  font-size: 150%;
+}
+
+.right .price {
+  margin-top: 5%;
+  font-size: 250%;
+}
+
+.right .addToCart {
+  color: white;
+  text-decoration: none;
+  background-color: #b1c23c;
+  margin-top: 5%;
+  font-size: 150%;
+  border-radius: 5px;
+}
+
+.right .addToCart:hover {
+  background-color: #c9e033;
+}
+
+.numberOrder {
+  margin-top: 20px;
+}
+
+
+
+.numberOrder input {
+  display: inline;
+  padding: 5px 5px;
+  outline: none;
+  border: 2px solid grey;
+  width: 5%;
+}
+
+
+.inforOfProduct {
+  position: relative;
+  text-align: justify;
+  margin-top: 30px;
+  font-size: 120%;
+  max-width: 70%;
+}
+
+.inforOfProduct-header {
+  border-bottom: 1px solid #b1c23c;
+  position: relative;
+}
+
+.inforOfProduct-header a {
+  font-size: 120%;
+  text-decoration: none;
+  color: black;
+  font-weight: 700;
+}
+
+.inforOfProduct-header i {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.text {
+  display: none;
+  margin-top: 15px;
+}
+
+.guide {
+  position: relative;
+  max-width: 70%;
+  margin-top: 30px;
+  font-size: 120%;
+}
+
+.guide-header {
+  border-bottom: 1px solid #b1c23c;
+  position: relative;
+}
+
+.guide-header i {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.guide-header a {
+
+  /* font-size: 120%; */
+  text-decoration: none;
+  color: black;
+  font-weight: 700;
+}
+
+.guide img {
+  display: none;
+  margin-top: 15px;
+  width: 100%;
+}
+
+
+/* rate */
+.rate-section {
+  display: none;
+  position: relative;
+  margin: 10px 0px 0px 0px;
+}
+
+.rateNumber {
+  display: inline;
+  font-size: 150%;
+}
+
+.rate {
+  font-size: 190%;
+  display: inline;
+  color: #deb217;
+
+}
