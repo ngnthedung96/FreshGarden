@@ -6,18 +6,19 @@ $(document).ready(function () {
             title = path.splice(i + 1, path.length).join('')
         }
     }
-    $.ajax({
-        type: "GET",
-        url: `http://localhost:3333/api/item/show/${title}`,
-        dataType: "json",
-        success: function (data) {
-            if (data.status) {
-                renderItems(data.items, data.category)
-                viewItem(data)
-            }
-        }
-    });
+    start(title)
+
+});
+
+
+
+function start(title) {
+    getItem(title)
     renderItemsByCategory()
+    authentication()
+}
+
+function authentication() {
     if (localStorage.getItem("accessToken")) {
         $.ajax({
             url: "http://localhost:3333/api/users/home",
@@ -41,7 +42,20 @@ $(document).ready(function () {
             }
         });
     }
-});
+}
+function getItem(title) {
+    $.ajax({
+        type: "GET",
+        url: `http://localhost:3333/api/item/show/${title}`,
+        dataType: "json",
+        success: function (data) {
+            if (data.status) {
+                renderItems(data.items, data.category)
+                viewItem(data)
+            }
+        }
+    });
+}
 
 
 function renderItemsByCategory() {
@@ -54,8 +68,11 @@ function renderItemsByCategory() {
                 url: `http://localhost:3333/api/item/show/${title}`,
                 dataType: "json",
                 success: function (data) {
-                    renderItems(data.items, title)
-                    viewItem(data)
+                    if (data.status) {
+                        renderItems(data.items, data.category)
+                        viewItem(data)
+                        authentication()
+                    }
                 }
             });
         }
@@ -97,10 +114,10 @@ function renderItems(items, title) {
                     <p class="price">${items[i].price}</p>
                   </a>
                   <div class="hoverProduct">
-                    <a href="#" class="addToCart">
+                    <a href="##" class="addToCart">
                         <i class="fa-solid fa-cart-plus"></i>
                     </a>
-                    <a href="#" class="viewProduct"  data-set = "${items[i].id}">
+                    <a href="##" class="viewProduct"  data-set = "${items[i].id}">
                         <i class="fa-solid fa-eye"></i>
                     </a>
                   </div>`
@@ -123,8 +140,8 @@ function viewItem(items) {
 }
 
 function postProductTocart(data) {
+    $(".addToCart").unbind()
     $(".addToCart").click(function (e) {
-        console.log(1)
         e.preventDefault();
         var parentDiv = this.parentElement.parentElement
         const nameItem = parentDiv.querySelector(".name").innerText
@@ -141,17 +158,15 @@ function postProductTocart(data) {
                 "price": `${priceItem}`,
                 "img": `${imgOfItem}`,
             },
+            headers: {
+                token: 'Bearer ' + localStorage.getItem("accessToken"),
+            },
             dataType: "json",
             success: function (data) {
+                console.log(data)
                 successFunction(data)
-                setTimeout(function () {
-                    window.open('/client/page/cart.html')
-                }, 1000)
             }
         });
-        setTimeout(function () {
-            window.open('/client/page/cart.html')
-        }, 1500)
     });
 }
 
@@ -165,13 +180,6 @@ function successFunction(data) {
             message: `${data.msg}`,
             type: 'Success'
         })
-        setTimeout(function () {
-            window.close()
-            window.open('/client/index.html')
-        }, 1500)
-        // setTimeout(function () {
-        //     location.reload()
-        // }, 2000)
     }
 }
 function errorFunction(message) {

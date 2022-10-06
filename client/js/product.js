@@ -125,9 +125,6 @@ function postProductTocart(data, id) {
         success: function (data) {
           console.log(data)
           successFunction(data)
-          setTimeout(function () {
-            window.open('/client/page/cart.html')
-          }, 1000)
         },
         error: function (data) {
           errorFunction(data.responseJSON.msg)
@@ -158,10 +155,6 @@ function successFunction(data) {
       message: `${data.msg}`,
       type: 'Success'
     })
-    setTimeout(function () {
-      window.close()
-      window.open('/client/index.html')
-    }, 1500)
     // setTimeout(function () {
     //     location.reload()
     // }, 2000)

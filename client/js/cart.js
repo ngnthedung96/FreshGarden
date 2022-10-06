@@ -83,7 +83,15 @@ document.addEventListener("click", closeAllSelect);
 
 //------------------------API--------------------------
 $(document).ready(function () {
+  start()
+});
 
+function start() {
+  getDataCart()
+  getDataCitySelect()
+}
+
+function getDataCart() {
   // cart produt
   $.ajax({
     type: "GET",
@@ -102,6 +110,10 @@ $(document).ready(function () {
       }
     }
   });
+
+}
+
+function getDataCitySelect() {
   // select
   $.ajax({
     async: false,
@@ -114,9 +126,7 @@ $(document).ready(function () {
       renderCommuneSelection(data)
     }
   });
-
-
-});
+}
 
 function renderCitySelection(data) {
 
@@ -418,6 +428,7 @@ function handleInputCode(data) {
 
 
 function deleteOrder() {
+  $("table").unbind()
   $("table").click(function (e) {
     e.preventDefault();
     var btnDelete = e.target.closest(".table-order-delete")
@@ -441,10 +452,7 @@ function deleteOrder() {
         dataType: "json",
         success: function (data) {
           successFunction(data)
-          setTimeout(function () {
-            location.reload()
-          }, 1000)
-
+          getDataCart()
         }
       });
     }
@@ -551,6 +559,7 @@ function handlePriceToCal(price) {
 
 function renderProducts(data) {
   const table = document.querySelector(".table-order")
+  table.innerHTML = ''
   const noItem = document.querySelector(".cart-content h2")
   if (data.products.length > 0) {
     noItem.classList.add('hide')

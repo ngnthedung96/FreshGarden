@@ -185,10 +185,10 @@ function renderItems(items) {
                       <p class="price">${item.price}</p>
                   </a>
                   <div class="hoverProduct">
-                      <a href="" class="addToCart">
+                      <a href="##" class="addToCart">
                           <i class="fa-solid fa-cart-plus"></i>
                       </a>
-                      <a href="" class="viewProduct"  data-set = "${item.id}">
+                      <a href="##" class="viewProduct"  data-set = "${item.id}">
                           <i class="fa-solid fa-eye"></i>
                       </a>
                   </div>`
