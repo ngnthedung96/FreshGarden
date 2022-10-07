@@ -36,7 +36,6 @@ const createProduct = async (user_id, item_id, name, price, img) => {
     } catch (err) {
         logger.error(err)
     }
-    console.log(res)
     return res;
 }
 const findProducts = async (value, field) => {
