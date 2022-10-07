@@ -469,12 +469,16 @@ footer {
 .footer-contact .phone-number i,
 .footer-contact .mail i {
   display: inline;
+  color: white;
 }
 
 .footer-contact .address p,
 .footer-contact .phone-number p,
 .footer-contact .mail p {
   display: inline;
+  color: white;
+
+
 }
 
 .footer-nav {

@@ -142,6 +142,7 @@ function viewItem(items) {
 function postProductTocart(data) {
     $(".addToCart").unbind()
     $(".addToCart").click(function (e) {
+        console.log(1)
         e.preventDefault();
         var parentDiv = this.parentElement.parentElement
         const nameItem = parentDiv.querySelector(".name").innerText
@@ -163,12 +164,19 @@ function postProductTocart(data) {
             },
             dataType: "json",
             success: function (data) {
-                console.log(data)
                 successFunction(data)
+            },
+            error: function (data) {
+                errorFunction(data.responseJSON.msg)
             }
         });
     });
 }
+
+
+
+
+
 
 
 // ------toast---------------

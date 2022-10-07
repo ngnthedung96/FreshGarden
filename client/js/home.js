@@ -1,152 +1,8 @@
-// ----------------show catnav-------------------- (thanh bên phải)
-const catNavBtn = document.querySelector('.js-category-nav__btn')
-const catNavBtnBack = document.querySelector('.js-category-nav__back-btn')
-const catNavSection = document.querySelector(".category-nav-section")
-const catNavContent = document.querySelector(".js-category-nav")
-function showCatNav() {
-  catNavSection.classList.add('open')
-  catNavContent.style.animation = ' ShowcatNav ease-in 0.2s forwards'
-  console.log(catNavContent.style.animation)
-
-}
-function hideCatNav() {
-  setTimeout(function () {
-    catNavSection.classList.remove('open')
-  }, 200)
-  catNavContent.style.animation = ' HidecatNav ease 0.2s forwards'
-}
-catNavBtn.addEventListener('click', showCatNav)
-catNavBtnBack.addEventListener('click', hideCatNav)
-catNavSection.addEventListener('click', hideCatNav)
-catNavContent.addEventListener('click', function (e) {
-  e.stopPropagation()
-})
-
-// ------------------------show subcatnav-------------( trong thanh bên phải)
 $(document).ready(function () {
-  $('.js-category-nav__product-btn').click(function (e) {
-    e.preventDefault();
-    $(".category-sub-nav__products").slideToggle();
-    $('body').animate({
-      scrollTop: $(this).offset().top
-    })
-    $('.js-category-nav__product-btn').toggleClass('catSubNavActive');
-  });
-});
-
-
-//--------------------- slider-----------------------------
-const sliderImage = document.querySelectorAll('.slider-footer__img img')
-const sliderContainer = document.querySelector('.slider-container')
-const sliderBtnLeft = document.querySelector('.slider-nav-btn .btn-left')
-const sliderBtnRight = document.querySelector('.slider-nav-btn .btn-right')
-
-
-const sliderEffect = {
-  currentIndex: 0,
-  render() {
-    var a = document.querySelector('.slider-footer__img img.borderSlider')
-    if (a) {
-      a.classList.remove('borderSlider')
-    }
-    sliderImage[this.currentIndex].classList.add('borderSlider')
-    sliderContainer.style.opacity = '0'
-    setTimeout(() => {
-      sliderContainer.style.opacity = '1'
-      sliderContainer.style.backgroundImage = `url('${sliderImage[this.currentIndex].attributes.src.value}')`
-    }, 500)
-  },
-  clickImg() {
-    var __this = this
-    sliderImage.forEach(function (item, index) {
-      item.addEventListener('click', function () {
-        __this.currentIndex = (item.getAttribute('data-set'))
-        __this.render()
-      })
-    })
-  },
-  nextImg() {
-    var __this = this
-    sliderBtnLeft.addEventListener('click', function () {
-      if (__this.currentIndex == 0) {
-        __this.currentIndex = sliderImage.length - 1
-      }
-      else {
-        __this.currentIndex--
-      }
-      __this.render()
-
-    })
-    sliderBtnRight.addEventListener('click', function () {
-      if (__this.currentIndex == sliderImage.length - 1) {
-        __this.currentIndex = 0
-      }
-      else {
-        __this.currentIndex++
-      }
-      __this.render()
-    })
-  },
-  start: function () {
-    this.render()
-    this.clickImg()
-    this.nextImg()
-  }
-}
-sliderEffect.start()
-//-----------------------search-nav----------------------------
-$(".search-nav-btn").click(function (e) {
-  e.preventDefault();
-  const searchSection = document.querySelector(".search-nav-section")
-  searchSection.classList.add('open')
-});
-$(".search-nav-section").click(function (e) {
-  e.preventDefault();
-  const searchSection = document.querySelector(".search-nav-section")
-  searchSection.classList.remove('open')
-});
-$(".search-nav-section .search-nav-content").click(function (e) {
-  e.stopPropagation();
-
-});
-$(".search-nav-content .btn-close-nav").click(function (e) {
-  e.stopPropagation();
-  const searchSection = document.querySelector(".search-nav-section")
-  searchSection.classList.remove('open')
-});
-//-------------------------API--------------------------------
-
-
-$(document).ready(function () {
-  $.ajax({
-    type: "GET",
-    url: "http://localhost:3333/api/item/show",
-    dataType: "json",
-    success: function (data) {
-      if (data.status) {
-        renderItems(data.items)
-        viewItem(data)
-        searchInput(data)
-        goToCate()
-      }
-    }
-  });
+  handleTransition()
+  getDataItem()
   if (localStorage.getItem("accessToken")) {
-    $.ajax({
-      url: "http://localhost:3333/api/users/home",
-      type: "GET",
-      dataType: 'json',
-      headers: {
-        token: 'Bearer ' + localStorage.getItem("accessToken"),
-      }
-    })
-      .done(function (data, textStatus, jqXHR) {
-        if (data.status) {
-          logOut()
-          haveUserLogin(data)
-          postProductTocart(data)
-        }
-      })
+    renderUser()
   }
   else {
     $(".oustanding-product").click(function (e) {
@@ -163,9 +19,173 @@ $(document).ready(function () {
     });
   }
 });
+function showCatNav() {
+  const catNavSection = document.querySelector(".category-nav-section")
+  const catNavContent = document.querySelector(".js-category-nav")
+  catNavSection.classList.add('open')
+  catNavContent.style.animation = ' ShowcatNav ease-in 0.2s forwards'
+}
+function hideCatNav() {
+  const catNavSection = document.querySelector(".category-nav-section")
+  const catNavContent = document.querySelector(".js-category-nav")
+  setTimeout(function () {
+    catNavSection.classList.remove('open')
+  }, 200)
+  catNavContent.style.animation = ' HidecatNav ease 0.2s forwards'
+}
+
+
+// ------------------------show subcatnav-------------( trong thanh bên phải)
+
+function showSubCatNav() {
+  $('.js-category-nav__product-btn').click(function (e) {
+    e.preventDefault();
+    $(".category-sub-nav__products").slideToggle();
+    $('body').animate({
+      scrollTop: $(this).offset().top
+    })
+    $('.js-category-nav__product-btn').toggleClass('catSubNavActive');
+  });
+}
+
+
+
+
+//-------------------------API--------------------------------
+function handleSlider() {
+  //--------------------- slider-----------------------------
+  const sliderImage = document.querySelectorAll('.slider-footer__img img')
+  const sliderContainer = document.querySelector('.slider-container')
+  const sliderBtnLeft = document.querySelector('.slider-nav-btn .btn-left')
+  const sliderBtnRight = document.querySelector('.slider-nav-btn .btn-right')
+
+
+  const sliderEffect = {
+    currentIndex: 0,
+    render() {
+      var a = document.querySelector('.slider-footer__img img.borderSlider')
+      if (a) {
+        a.classList.remove('borderSlider')
+      }
+      sliderImage[this.currentIndex].classList.add('borderSlider')
+      sliderContainer.style.opacity = '0'
+      setTimeout(() => {
+        sliderContainer.style.opacity = '1'
+        sliderContainer.style.backgroundImage = `url('${sliderImage[this.currentIndex].attributes.src.value}')`
+      }, 500)
+    },
+    clickImg() {
+      var __this = this
+      sliderImage.forEach(function (item, index) {
+        item.addEventListener('click', function () {
+          __this.currentIndex = (item.getAttribute('data-set'))
+          __this.render()
+        })
+      })
+    },
+    nextImg() {
+      var __this = this
+      sliderBtnLeft.addEventListener('click', function () {
+        if (__this.currentIndex == 0) {
+          __this.currentIndex = sliderImage.length - 1
+        }
+        else {
+          __this.currentIndex--
+        }
+        __this.render()
+
+      })
+      sliderBtnRight.addEventListener('click', function () {
+        if (__this.currentIndex == sliderImage.length - 1) {
+          __this.currentIndex = 0
+        }
+        else {
+          __this.currentIndex++
+        }
+        __this.render()
+      })
+    },
+    start: function () {
+      this.render()
+      this.clickImg()
+      this.nextImg()
+    }
+  }
+  sliderEffect.start()
+}
+function handlesearchNav() {
+  //-----------------------search-nav----------------------------
+  $(".search-nav-btn").click(function (e) {
+    e.preventDefault();
+    const searchSection = document.querySelector(".search-nav-section")
+    searchSection.classList.add('open')
+  });
+  $(".search-nav-section").click(function (e) {
+    e.preventDefault();
+    const searchSection = document.querySelector(".search-nav-section")
+    searchSection.classList.remove('open')
+  });
+  $(".search-nav-section .search-nav-content").click(function (e) {
+    e.stopPropagation();
+
+  });
+  $(".search-nav-content .btn-close-nav").click(function (e) {
+    e.stopPropagation();
+    const searchSection = document.querySelector(".search-nav-section")
+    searchSection.classList.remove('open')
+  });
+}
+function handleTransition() {
+  const catNavBtn = document.querySelector('.js-category-nav__btn')
+  const catNavBtnBack = document.querySelector('.js-category-nav__back-btn')
+  const catNavSection = document.querySelector(".category-nav-section")
+  const catNavContent = document.querySelector(".js-category-nav")
+  catNavBtn.addEventListener('click', showCatNav)
+  catNavBtnBack.addEventListener('click', hideCatNav)
+  catNavSection.addEventListener('click', hideCatNav)
+  catNavContent.addEventListener('click', function (e) {
+    e.stopPropagation()
+  })
+  showSubCatNav()
+  handleSlider()
+  handlesearchNav()
+}
+
 
 
 //------------function--------------
+function renderUser() {
+  $.ajax({
+    url: "http://localhost:3333/api/users/home",
+    type: "GET",
+    dataType: 'json',
+    headers: {
+      token: 'Bearer ' + localStorage.getItem("accessToken"),
+    }
+  })
+    .done(function (data, textStatus, jqXHR) {
+      if (data.status) {
+        logOut()
+        haveUserLogin(data)
+        postProductTocart(data)
+      }
+    })
+}
+function getDataItem() {
+  $.ajax({
+    type: "GET",
+    url: "http://localhost:3333/api/item/show",
+    dataType: "json",
+    success: function (data) {
+      if (data.status) {
+        renderItems(data.items)
+        viewItem(data)
+        searchInput(data)
+        goToCate()
+      }
+    }
+  });
+}
 function renderItems(items) {
   //------------------------outstanding------------------------------
   const outstandingProducts = document.querySelectorAll(".oustanding-product")
@@ -246,7 +266,8 @@ function searchInput(data) {
       searchResultsContainer.innerHTML = ''
       const searchResults = []
       for (var result of data.items) {
-        if (result.name.toLowerCase().trim().includes(search)) {
+        const resultArr = result.name.toLowerCase().trim().split('')
+        if (search.split('').every(text => resultArr.includes(text))) {
           searchResults.push(result)
         }
       }
@@ -380,4 +401,5 @@ function errorFunction(message) {
     type: 'Error'
   })
 }
+
 
