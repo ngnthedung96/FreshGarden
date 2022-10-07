@@ -9,6 +9,7 @@ $(document).ready(function () {
       success: function (data) {
         haveAdminLogin(data)
         renderUsers(data)
+        logOut()
       }
     });
     $(".btn-add").click(function (e) {
@@ -39,8 +40,6 @@ $(document).ready(function () {
     window.open('/admin/page-error-400.html')
   }
 });
-
-
 
 
 function haveAdminLogin(data) {

@@ -7,6 +7,7 @@ $(document).ready(function () {
                 token: 'Bearer ' + localStorage.getItem("accessAdminToken"),
             },
             success: function (data) {
+                logOut()
                 haveAdminLogin(data)
             }
         });
@@ -51,6 +52,27 @@ $(document).ready(function () {
 
 
 
+function logOut() {
+    //-------log out--------------
+    $('.log-out__btn').click(function (e) {
+        e.preventDefault();
+        $.ajax({
+            url: "http://localhost:3333/api/admins/logout",
+            type: "POST",
+            dataType: 'json',
+            headers: {
+                token: 'Bearer ' + localStorage.getItem("accessAdminToken"),
+            }
+        })
+            .done(function (data, textStatus, jqXHR) {
+                localStorage.removeItem('accessAdminToken');
+                successFunction(data)
+                setTimeout(function () {
+                    window.open('/admin/page-login.html')
+                }, 1000)
+            })
+    });
+}
 
 function haveAdminLogin(data) {
     const loginDiv = document.querySelector(".header-right .default")
@@ -97,12 +119,11 @@ function renderNetProfit(data) {
     const month = date.getMonth() + 1
     const year = date.getFullYear()
     let imPrice = 0
-    for (order of data.orders) {
+    for (let order of data.orders) {
         const time = order.createdAt.split('-')
         const [checkYear, checkMonth] = time
         if (month === Number(checkMonth)) {
-
-            for (detail of JSON.parse(order.detail)) {
+            for (let detail of JSON.parse(order.detail)) {
                 $.ajax({
                     async: false,
                     type: "GET",
@@ -140,7 +161,7 @@ function renderNewCustomers(data) {
     const monthNames = ["January", "February", "March", "April", "May", "June",
         "July", "August", "September", "October", "November", "December"
     ];
-    for (user of data.user) {
+    for (let user of data.user) {
         const time = user.createdAt.split('-')
         const [checkYear, checkMonth] = time
         if (month === Number(checkMonth)) {
@@ -281,7 +302,7 @@ function getMaxAndSum(list) {
 
 function renderAllAdmins(data) {
     const adminsContainer = document.querySelector(".admins")
-    for (admin of data.admins) {
+    for (let admin of data.admins) {
         const adminDiv = document.createElement('div')
         adminDiv.classList.add('col-lg-4')
         adminDiv.classList.add('col-sm-6')
@@ -311,4 +332,26 @@ function handlePriceToCal(price) {
         }
     }
     return Number(container.join(''))
+}
+
+// ------toast---------------
+import toast from "./toast.js"
+function successFunction(data) {
+    if (data.status) {
+        toast({
+            title: 'Success',
+            message: `${data.msg}`,
+            type: 'success'
+        })
+        setTimeout(function () {
+            location.reload()
+        }, 1500)
+    }
+}
+function errorFunction(message) {
+    toast({
+        title: 'Error',
+        message: `${message}`,
+        type: 'error'
+    })
 }

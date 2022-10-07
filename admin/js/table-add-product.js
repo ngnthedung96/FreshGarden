@@ -10,6 +10,7 @@ $(document).ready(function () {
         renderProducts(data)
         haveAdminLogin(data)
         postItemToDb()
+        logOut()
 
       }
     });
@@ -48,6 +49,28 @@ function renderProducts(data) {
     bodyTable.appendChild(rowDiv)
     count++
   }
+}
+
+function logOut() {
+  //-------log out--------------
+  $('.log-out__btn').click(function (e) {
+    e.preventDefault();
+    $.ajax({
+      url: "http://localhost:3333/api/admins/logout",
+      type: "POST",
+      dataType: 'json',
+      headers: {
+        token: 'Bearer ' + localStorage.getItem("accessAdminToken"),
+      }
+    })
+      .done(function (data, textStatus, jqXHR) {
+        localStorage.removeItem('accessAdminToken');
+        successFunction(data)
+        setTimeout(function () {
+          window.open('/admin/page-login.html')
+        }, 1000)
+      })
+  });
 }
 
 function haveAdminLogin(data) {
@@ -135,26 +158,4 @@ function errorFunction(message) {
     message: `${message}`,
     type: 'error'
   })
-}
-
-function logOut() {
-  //-------log out--------------
-  $('.log-out__btn').click(function (e) {
-    e.preventDefault();
-    $.ajax({
-      url: "http://localhost:3333/api/users/logout",
-      type: "POST",
-      dataType: 'json',
-      headers: {
-        token: 'Bearer ' + localStorage.getItem("accessToken"),
-      }
-    })
-      .done(function (data, textStatus, jqXHR) {
-        localStorage.removeItem('accessToken');
-        successFunction(data)
-        setTimeout(function () {
-          location.reload()
-        }, 1000)
-      })
-  });
 }

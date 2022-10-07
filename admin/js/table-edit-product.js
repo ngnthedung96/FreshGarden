@@ -10,6 +10,7 @@ $(document).ready(function () {
         renderProducts(data)
         haveAdminLogin(data)
         editProducts()
+        logOut()
       }
     });
   }
@@ -17,7 +18,27 @@ $(document).ready(function () {
     window.open('/admin/page-error-400.html')
   }
 });
-
+function logOut() {
+  //-------log out--------------
+  $('.log-out__btn').click(function (e) {
+    e.preventDefault();
+    $.ajax({
+      url: "http://localhost:3333/api/admins/logout",
+      type: "POST",
+      dataType: 'json',
+      headers: {
+        token: 'Bearer ' + localStorage.getItem("accessAdminToken"),
+      }
+    })
+      .done(function (data, textStatus, jqXHR) {
+        localStorage.removeItem('accessAdminToken');
+        successFunction(data)
+        setTimeout(function () {
+          window.open('/admin/page-login.html')
+        }, 1000)
+      })
+  });
+}
 function editProducts() {
   $(".table-products tbody").click(function (e) {
     e.preventDefault();
@@ -129,27 +150,6 @@ function haveAdminLogin(data) {
 
 }
 
-function logOut() {
-  //-------log out--------------
-  $('.log-out__btn').click(function (e) {
-    e.preventDefault();
-    $.ajax({
-      url: "http://localhost:3333/api/users/logout",
-      type: "POST",
-      dataType: 'json',
-      headers: {
-        token: 'Bearer ' + localStorage.getItem("accessAdminToken"),
-      }
-    })
-      .done(function (data, textStatus, jqXHR) {
-        localStorage.removeItem('accessAdminToken');
-        successFunction(data)
-        setTimeout(function () {
-          location.reload()
-        }, 1000)
-      })
-  });
-}
 
 // ------toast---------------
 import toast from "./toast.js"
@@ -172,3 +172,4 @@ function errorFunction(message) {
     type: 'error'
   })
 }
+

@@ -13,11 +13,32 @@ $(document).ready(function () {
             showDetail(data)
             // renderPagNav(data)
             renderOrder(data)
+            logOut()
         }
     });
     // renderPage()
 });
-
+function logOut() {
+    //-------log out--------------
+    $('.log-out__btn').click(function (e) {
+        e.preventDefault();
+        $.ajax({
+            url: "http://localhost:3333/api/admins/logout",
+            type: "POST",
+            dataType: 'json',
+            headers: {
+                token: 'Bearer ' + localStorage.getItem("accessAdminToken"),
+            }
+        })
+            .done(function (data, textStatus, jqXHR) {
+                localStorage.removeItem('accessAdminToken');
+                successFunction(data)
+                setTimeout(function () {
+                    window.open('/admin/page-login.html')
+                }, 1000)
+            })
+    });
+}
 function renderOrders(data) {
     let myData = [];
     var countTable = 1
@@ -512,4 +533,27 @@ function handleTotalPrice(price) {
     }
 
     return b
+}
+
+
+// ------toast---------------
+import toast from "./toast.js"
+function successFunction(data) {
+    if (data.status) {
+        toast({
+            title: 'Success',
+            message: `${data.msg}`,
+            type: 'success'
+        })
+        setTimeout(function () {
+            location.reload()
+        }, 1500)
+    }
+}
+function errorFunction(message) {
+    toast({
+        title: 'Error',
+        message: `${message}`,
+        type: 'error'
+    })
 }

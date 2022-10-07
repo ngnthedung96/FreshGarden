@@ -7,8 +7,9 @@ $(document).ready(function () {
                 token: 'Bearer ' + localStorage.getItem("accessAdminToken"),
             },
             success: function (data) {
-                renderProducts(data)
-                // haveAdminLogin(data)
+                renderCodes(data)
+                logOut()
+                haveAdminLogin(data)
             }
         });
     }
@@ -17,8 +18,7 @@ $(document).ready(function () {
     }
 });
 
-
-function renderProducts(data) {
+function renderCodes(data) {
     const bodyTable = document.querySelector('.table-codes .table tbody')
     var count = 1
     for (var code of data.codes) {
@@ -39,6 +39,29 @@ function renderProducts(data) {
     }
 }
 
+
+function logOut() {
+    //-------log out--------------
+    $('.log-out__btn').click(function (e) {
+        e.preventDefault();
+        $.ajax({
+            url: "http://localhost:3333/api/admins/logout",
+            type: "POST",
+            dataType: 'json',
+            headers: {
+                token: 'Bearer ' + localStorage.getItem("accessAdminToken"),
+            }
+        })
+            .done(function (data, textStatus, jqXHR) {
+                localStorage.removeItem('accessAdminToken');
+                successFunction(data)
+                setTimeout(function () {
+                    window.open('/admin/page-login.html')
+                }, 1000)
+            })
+    });
+}
+
 function haveAdminLogin(data) {
     const loginDiv = document.querySelector(".header-right .default")
     loginDiv.classList.add('hide')
@@ -56,24 +79,25 @@ function haveAdminLogin(data) {
 
 }
 
-function logOut() {
-    //-------log out--------------
-    $('.log-out__btn').click(function (e) {
-        e.preventDefault();
-        $.ajax({
-            url: "http://localhost:3333/api/users/logout",
-            type: "POST",
-            dataType: 'json',
-            headers: {
-                token: 'Bearer ' + localStorage.getItem("accessAdminToken"),
-            }
+
+// ------toast---------------
+import toast from "./toast.js"
+function successFunction(data) {
+    if (data.status) {
+        toast({
+            title: 'Success',
+            message: `${data.msg}`,
+            type: 'success'
         })
-            .done(function (data, textStatus, jqXHR) {
-                localStorage.removeItem('accessAdminToken');
-                successFunction(data)
-                setTimeout(function () {
-                    location.reload()
-                }, 1000)
-            })
-    });
+        setTimeout(function () {
+            location.reload()
+        }, 1500)
+    }
+}
+function errorFunction(message) {
+    toast({
+        title: 'Error',
+        message: `${message}`,
+        type: 'error'
+    })
 }

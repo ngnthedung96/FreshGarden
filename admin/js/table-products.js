@@ -9,6 +9,7 @@ $(document).ready(function () {
       success: function (data) {
         renderProducts(data)
         haveAdminLogin(data)
+        logOut()
       }
     });
   }
@@ -16,7 +17,27 @@ $(document).ready(function () {
     window.open('/admin/page-error-400.html')
   }
 });
-
+function logOut() {
+  //-------log out--------------
+  $('.log-out__btn').click(function (e) {
+    e.preventDefault();
+    $.ajax({
+      url: "http://localhost:3333/api/admins/logout",
+      type: "POST",
+      dataType: 'json',
+      headers: {
+        token: 'Bearer ' + localStorage.getItem("accessAdminToken"),
+      }
+    })
+      .done(function (data, textStatus, jqXHR) {
+        localStorage.removeItem('accessAdminToken');
+        successFunction(data)
+        setTimeout(function () {
+          window.open('/admin/page-login.html')
+        }, 1000)
+      })
+  });
+}
 
 function renderProducts(data) {
   const bodyTable = document.querySelector('.table-products .table tbody')
@@ -65,24 +86,25 @@ function haveAdminLogin(data) {
 
 }
 
-function logOut() {
-  //-------log out--------------
-  $('.log-out__btn').click(function (e) {
-    e.preventDefault();
-    $.ajax({
-      url: "http://localhost:3333/api/users/logout",
-      type: "POST",
-      dataType: 'json',
-      headers: {
-        token: 'Bearer ' + localStorage.getItem("accessAdminToken"),
-      }
+
+// ------toast---------------
+import toast from "./toast.js"
+function successFunction(data) {
+  if (data.status) {
+    toast({
+      title: 'Success',
+      message: `${data.msg}`,
+      type: 'success'
     })
-      .done(function (data, textStatus, jqXHR) {
-        localStorage.removeItem('accessAdminToken');
-        successFunction(data)
-        setTimeout(function () {
-          location.reload()
-        }, 1000)
-      })
-  });
+    setTimeout(function () {
+      location.reload()
+    }, 1500)
+  }
+}
+function errorFunction(message) {
+  toast({
+    title: 'Error',
+    message: `${message}`,
+    type: 'error'
+  })
 }
