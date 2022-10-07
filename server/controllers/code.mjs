@@ -20,6 +20,22 @@ const showCode = async (req, res, next) => {
         console.log(err)
     }
 }
+const findCode = async (req, res, next) => {
+    try {
+        if (req.user) {
+
+            const { code } = req.params
+            const findedCode = await codeDb.findCode(code)
+            res.json({
+                status: true,
+                findedCode
+            })
+        }
+    }
+    catch (err) {
+        console.log(err)
+    }
+}
 
 
 const createCode = async (req, res, next) => {
@@ -47,5 +63,6 @@ const createCode = async (req, res, next) => {
 
 export const codesController = {
     showCode,
-    createCode
+    createCode,
+    findCode
 }

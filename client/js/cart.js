@@ -18,7 +18,6 @@ function handleSelect(el) {
     c = document.createElement("DIV");
     c.setAttribute("data-set", `${selElmnt[j].getAttribute("data-set")}`)
     c.innerHTML = selElmnt.options[j].innerHTML;
-    console.log(c)
     c.addEventListener("click", function (e) {
       /* When an item is clicked, update the original select box,
       and the selected item: */
@@ -104,7 +103,7 @@ function getDataCart() {
       if (data.status) {
         renderProducts(data)
         deleteOrder()
-        handleInputCode(data)
+        handleSelectCode(data)
         handleTotalPrice(data)
         pay()
       }
@@ -130,7 +129,7 @@ function getDataCitySelect() {
 
 function renderCitySelection(data) {
 
-  const selectDiv = document.querySelector(".select-setion #cities select")
+  const selectDiv = document.querySelector(".select-section #cities select")
 
   var htmls = ''
   htmls += `<option value="0">Thành phố</option>`
@@ -156,8 +155,7 @@ function renderDistrictSelection(data) {
       url: `http://localhost:3333/api/districts/show/${cityId}`,
       dataType: "json",
       success: function (data) {
-        const selectDiv = document.querySelector(".select-setion #districts select")
-
+        const selectDiv = document.querySelector(".select-section #districts select")
         var htmls = ''
         var count = 1
         htmls += ` <option value="0">Quận huyện</option>`
@@ -187,8 +185,7 @@ function renderCommuneSelection(data) {
       url: `http://localhost:3333/api/communes/show/${districtId}`,
       dataType: "json",
       success: function (data) {
-        console.log(data)
-        const selectDiv = document.querySelector(".select-setion #communes select")
+        const selectDiv = document.querySelector(".select-section #communes select")
         var htmls = ''
         var count = 1
         htmls += ` <option value="0">Quận huyện</option>`
@@ -364,11 +361,22 @@ function totalPrice(code) {
   oldTotalPrice.innerText = handlePriceToCal(oldTotal)
   //giảm giá
   if (code) {
-    discountDiv.innerText = `-${code}`
-    discountDiv.classList.remove("hide")
-    discountContentDiv.classList.remove("hide")
-    const discount = total * parseInt(code) / 100
-    total -= Math.round(discount)
+    $.ajax({
+      async: false,
+      type: "GET",
+      url: `http://localhost:3333/api/code/find/${code}`,
+      dataType: "json",
+      headers: {
+        token: 'Bearer ' + localStorage.getItem("accessToken"),
+      },
+      success: function (data) {
+        discountDiv.innerText = `-${data.findedCode.discount}`
+        discountDiv.classList.remove("hide")
+        discountContentDiv.classList.remove("hide")
+        const discount = total * parseInt(data.findedCode.discount.slice()) / 100
+        total -= Math.round(discount)
+      }
+    });
   }
 
   var totalPriceDiv = document.querySelector(".total-price")
@@ -404,26 +412,32 @@ function handleshipFee(totalPrice) {
   return shipfee
 }
 
-function handleInputCode(data) {
-  const inputCode = document.querySelector('#code')
-  inputCode.addEventListener('input', function () {
-    if (inputCode.value) {
-      $.ajax({
-        type: "GET",
-        url: `http://localhost:3333/api/sale/show/${data.products[0].user_id}/${inputCode.value}`,
-        success: function (data) {
-          if (data.code) {
-            const code = data.code.discount
-            const number = data.code.number
-            totalPrice(code)
-          }
-          else {
-            totalPrice()
-          }
-        }
-      });
+function handleSelectCode(data) {
+  const selectCode = document.querySelector('#code')
+  $(selectCode).select2();
+  $.ajax({
+    async: false,
+    type: "GET",
+    url: "http://localhost:3333/api/sale/show/",
+    dataType: "json",
+    headers: {
+      token: 'Bearer ' + localStorage.getItem("accessToken"),
+    },
+    success: function (data) {
+      let html = '<option disabled selected value = "">Chọn mã giảm giá đang có</option>'
+      for (let sale of data.sale) {
+        html += `
+                <option data-set = "${sale.id}" value="${sale.code}"><span>Mã ${sale.code}</option>
+              `
+        selectCode.innerHTML = html
+      }
     }
-  })
+  });
+  $(selectCode).on('change', function () {
+    if (this.value) {
+      totalPrice(this.value)
+    }
+  });
 }
 
 
@@ -488,36 +502,67 @@ function pay() {
       const user_id = document.querySelector(".table-order-user-id").innerText
       const note = document.querySelector(".cart-footer #note").value
       const date = document.querySelector(".cart-footer #date").value
+      const todayDate = moment().format('YYYY-MM-DD')
+      const checkDate = moment.duration(moment(date).diff(moment(todayDate))).asMinutes()
       const time = document.querySelector(".cart-footer #time").value
       const code = document.querySelector(".cart-footer #code").value
       const shipFee = document.querySelector(".cart-footer .right .ship-fee").innerText
-      if (date && time) {
-        $.ajax({
-          type: "POST",
-          url: "http://localhost:3333/api/pay/create",
-          data: {
-            user_id,
-            note,
-            price,
-            code,
-            date,
-            time,
-            shipFee,
-            oldPrice,
-            detail: container
-          }
-          ,
-          dataType: "json",
-          success: function (data) {
-            successFunction(data)
-            setTimeout(function () {
-              location.reload()
-            }, 1500)
-          }
-        });
+      const address = document.querySelector(".select-section .address").value
+      let city = null
+      let district = null
+      let communes = null
+      let sale_id = null
+      if (document.querySelector("#code option:checked")) {
+        sale_id = document.querySelector("#code option:checked").getAttribute('data-set')
+      }
+      if (document.querySelector("#cities .same-as-selected") &&
+        document.querySelector("#districts .same-as-selected") &&
+        document.querySelector("#communes .same-as-selected")
+      ) {
+        city = document.querySelector("#cities .same-as-selected").getAttribute('data-set')
+        district = document.querySelector("#districts .same-as-selected").getAttribute('data-set')
+        communes = document.querySelector("#communes .same-as-selected").getAttribute('data-set')
+      }
+      if (date && time && address &&
+        city &&
+        district &&
+        communes) {
+        if (checkDate >= 0) {
+          $.ajax({
+            type: "POST",
+            url: "http://localhost:3333/api/pay/create",
+            data: {
+              user_id,
+              note,
+              price,
+              code,
+              sale_id,
+              date,
+              time,
+              shipFee,
+              oldPrice,
+              detail: container,
+              address,
+              city,
+              district,
+              commune: communes
+            }
+            ,
+            dataType: "json",
+            success: function (data) {
+              successFunction(data)
+              setTimeout(function () {
+                location.reload()
+              }, 1500)
+            }
+          });
+        }
+        else {
+          errorFunction("Vui lòng nhập lại thời gian")
+        }
       }
       else {
-        errorFunction("Bạn cần nhập thời gian giao hàng")
+        errorFunction("Bạn cần nhập thời gian và địa chỉ giao hàng")
       }
     }
     else {
@@ -593,7 +638,6 @@ function renderProducts(data) {
     }
   }
 }
-
 // ------toast---------------
 import toast from "./toast.js"
 function successFunction(data) {

@@ -8,7 +8,8 @@ const Pay = sequelize.define('Pay', {
     },
     note: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        defaultValue: ''
     },
     price: {
         type: DataTypes.STRING,
@@ -16,17 +17,19 @@ const Pay = sequelize.define('Pay', {
     },
     code: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        defaultValue: ''
+    },
+    sale_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 0
     },
     date: {
         type: DataTypes.STRING,
         allowNull: false
     },
     time: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    checkCode: {
         type: DataTypes.STRING,
         allowNull: false
     },
@@ -37,8 +40,28 @@ const Pay = sequelize.define('Pay', {
     staffFee: {
         type: DataTypes.STRING,
         allowNull: false
-    }, rate: {
+    },
+    rate: {
         type: DataTypes.STRING,
+        allowNull: false
+    },
+    city: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 0
+    },
+    district: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 0
+    },
+    commune: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 0
+    },
+    address: {
+        type: DataTypes.INTEGER,
         allowNull: false
     },
     detail: {
@@ -46,25 +69,34 @@ const Pay = sequelize.define('Pay', {
         allowNull: false
     }
 }, {});
-const createOrder = async (user_id, note, price, code, date, time, checkCode, shipFee, staffFee, rate, details) => {
+const createOrder = async (user_id, note, price, code, sale_id, date, time, shipFee, staffFee, rate, details, city,
+    district,
+    commune,
+    address) => {
     let res = null;
-    console.log(typeof (rate))
     try {
         res = await Pay.create({
             user_id: user_id,
             note: note,
             price: price,
             code: code,
+            sale_id,
             date: date,
             time: time,
-            checkCode: checkCode,
             shipFee,
             staffFee,
             rate,
+            city,
+            district,
+            commune,
+            address,
             detail: `[${details}]`
         }, {
-            fields: ['user_id', 'note', 'price', 'code', 'date', 'time', 'checkCode', "shipFee",
-                "staffFee", "rate", "detail"]
+            fields: ['user_id', 'note', 'price', 'code', 'sale_id', 'date', 'time', "shipFee",
+                "staffFee", "rate", "city",
+                "district",
+                "commune",
+                "address", "detail"]
         })
 
     } catch (err) {
@@ -74,7 +106,6 @@ const createOrder = async (user_id, note, price, code, date, time, checkCode, sh
 }
 
 const findOrders = async (value, field) => {
-    console.log(Pay.findAll())
     let res = null;
     try {
         res = await Pay.findAll(

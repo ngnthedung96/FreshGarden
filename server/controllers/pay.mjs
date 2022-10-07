@@ -11,7 +11,10 @@ import moment from "moment"
 
 
 const createOrder = async (req, res, next) => {
-  var { user_id, note, shipFee, oldPrice, price, code, date, time, detail } = req.body;
+  var { user_id, note, shipFee, oldPrice, price, code, sale_id, date, time, detail, rate, details, city,
+    district,
+    commune,
+    address } = req.body;
   var rate = ""
   var staffFee = handlePriceToshow(Math.round(handlePriceToCal(oldPrice) * 10 / 100))
   var checkCode = "false"
@@ -21,12 +24,6 @@ const createOrder = async (req, res, next) => {
     details.push(JSON.stringify(i))
   }
   try {
-    if (!note) {
-      note = ""
-    }
-    else if (!code) {
-      code = ""
-    }
 
     // add code
 
@@ -34,69 +31,24 @@ const createOrder = async (req, res, next) => {
     if ((handlePriceToCal(oldPrice) - handlePriceToCal(shipFee)) > 100000) {
       await saleDb.createSale("GIAM10", user_id)
     }
-
-
-    //---------------member----------------
-    var ordersOfUser = await payDb.findOrders(user_id)
-    var ordersContainer = null
-    for (var i = 0; i < ordersOfUser.length; i++) {
-      if (ordersOfUser[i].dataValues.checkCode === "checked") {
-        ordersContainer = ordersOfUser.slice(i + 1, ordersOfUser.length)
-      }
-    }
-    if (ordersContainer) {
-      var count = 0
-      for (var orderBlock of ordersContainer) {
-        for (var numberOrder of JSON.parse(orderBlock.detail)) {
-          for (var numberProduct of numberOrder.number) {
-            count += Number(numberProduct)
-          }
-        }
-      }
-      if (count >= 4) {
-        await saleDb.createSale("GIAM10", user_id)
-        checkCode = 'checked'
-      }
-    }
-    else {
-      var count = 0
-      if (ordersOfUser.length <= 1) {
-        for (var numberOfProduct of detail) {
-          count += numberOfProduct.number
-        }
-      }
-      else {
-        for (var orderBlock of ordersOfUser) {
-          if (orderBlock.checkCode === "checked") {
-            break
-          }
-          else {
-            for (var numberOrder of JSON.parse(orderBlock.detail)) {
-              for (var numberProduct of numberOrder.number) {
-                // console.log(numberProduct)
-                count += Number(numberProduct)
-              }
-            }
-          }
-        }
-      }
-      if (count >= 4) {
-        await saleDb.createSale("GIAM10", user_id)
-        checkCode = 'checked'
-      }
-    }
-
     // add order
-    const order = await payDb.createOrder(user_id, note, price, code, date, time, checkCode, shipFee, staffFee, rate, details)
+    const order = await payDb.createOrder(user_id, note, price, code, sale_id, date, time, shipFee,
+      staffFee, rate, details,
+      city,
+      district,
+      commune,
+      address)
     for (var i of detail) {
       const item = await itemsDb.findItem(i.item_id)
       await item.update({
         number: item.dataValues.number - Number(i.number),
       })
       await item.save()
-      await saleDb.deleteSale(code)
       // // delete cart
       await cartDb.deleteAll()
+    }
+    if (sale_id) {
+      await saleDb.deleteSale(sale_id)
     }
     res.json({
       status: "Success",

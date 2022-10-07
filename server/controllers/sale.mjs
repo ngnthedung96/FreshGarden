@@ -50,15 +50,18 @@ const createSale = async (req, res, next) => {
 
 const showSaleOfUser = async (req, res, next) => {
     try {
-        const sale = await saleDb.findSaleOfUser(Number(req.params.id), req.params.code)
-        var code = null
-        if (sale) {
-            code = await codeDb.findCode(sale.dataValues.code)
+        if (req.user) {
+            const sale = await saleDb.findSaleOfUser(Number(req.user.id), req.params.code)
+            var code = null
+            if (sale) {
+                code = await codeDb.findCode(sale.dataValues.code)
+            }
+            res.json({
+                status: true,
+                code
+            })
+
         }
-        res.json({
-            status: true,
-            code
-        })
     }
     catch (err) {
         console.log(err)
@@ -68,11 +71,14 @@ const showSaleOfUser = async (req, res, next) => {
 
 const showSalesOfUser = async (req, res, next) => {
     try {
-        const sale = await saleDb.findSaleOfUser(Number(req.params.id))
-        res.json({
-            status: true,
-            sale
-        })
+        if (req.user) {
+            const sale = await saleDb.findSalesOfUser(Number(req.user.id))
+            res.json({
+                status: true,
+                sale
+            })
+        }
+
     }
     catch (err) {
         console.log(err)

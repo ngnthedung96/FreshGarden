@@ -170,18 +170,20 @@ router.get('/admins/getuser/:id',
 
 
 //-----------------sale----------------------
-router.get('/sale/show/:id',
+router.get('/sale/show/',
+    tokenValidate.verifyToken,
     saleController.showSalesOfUser
 )
 router.get('/sale/show/:id/:code',
     saleController.showSaleOfUser
 )
-router.get('/sale/show/',
-    saleController.showSales
-)
 router.get('/code/show',
     tokenValidate.verifyToken,
     codesController.showCode
+)
+router.get('/code/find/:code',
+    tokenValidate.verifyToken,
+    codesController.findCode
 )
 
 

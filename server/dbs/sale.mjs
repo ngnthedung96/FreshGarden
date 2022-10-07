@@ -82,7 +82,7 @@ const deleteSale = async (value, field) => {
     try {
         res = await Sale.destroy(
             {
-                where: { "code": value },
+                where: { "id": value },
             }
         )
     }
