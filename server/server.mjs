@@ -20,7 +20,7 @@ app.use(cors())
 app.use(express.json()) // for parsing application/json
 app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 app.use(express.static('public'))
-const port = 3333
+const port = process.env.PORT || 3333
 
 app.get('/', (req, res) => {
     var options = {
@@ -37,9 +37,6 @@ app.get('/', (req, res) => {
             next(err)
         }
     })
-})
-app.get('/home', (req, res) => {
-    res.json('this is home')
 })
 
 // điều hướng routes bắt đầu bằng /api/...
