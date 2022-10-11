@@ -1,4 +1,4 @@
-import { adminDb } from '../dbs/index.mjs'
+import { adminDb, userDb } from '../dbs/index.mjs'
 import { validationResult } from 'express-validator';
 import jwt from "jsonwebtoken"
 import { resolve } from 'path';
@@ -34,14 +34,14 @@ const generateAccessToken = (admin) => {
     return jwt.sign({
         id: adminId
     },
-        "secretKey")
+        "secretAdminKey")
 }
 const generateRefreshToken = (admin) => {
     const adminId = admin.dataValues.id
     return jwt.sign({
         id: adminId
     },
-        "secretKey",
+        "secretAdminKey",
         {
             expiresIn: "365d"
         })
@@ -137,8 +137,8 @@ const getInfor = async (req, res, next) => {
 
 const getAdmin = async (req, res, next) => {
     try {
-        if (req.user) {
-            const admin = await adminDb.findById(req.user.id, 'id')
+        if (req.admin) {
+            const admin = await adminDb.findById(req.admin.id, 'id')
             res.json({
                 status: true,
                 admin
@@ -152,7 +152,7 @@ const getAdmin = async (req, res, next) => {
 
 const getAdmins = async (req, res, next) => {
     try {
-        if (req.user) {
+        if (req.admin) {
             const admins = await adminDb.findAll()
             res.json({
                 status: true,
@@ -172,18 +172,33 @@ const updateInfor = async (req, res, next) => {
         return;
     }
     try {
-        if (req.user) {
-            const user = await adminDb.findById(req.user.id, 'id')
-            await user.update({
+        if (req.admin) {
+            const admin = await adminDb.findById(req.user.id, 'id')
+            await admin.update({
                 email: req.body.email,
                 password: req.body.password
             })
-            await user.save()
+            await admin.save()
             res.json({
                 status: true,
                 msg: 'Thay đổi thông tin thành công',
+                admin
+            })
+        }
+    } catch (e) {
+        console.log(e.message)
+        res.sendStatus(500) && next(e)
+    }
+}
+const getUser = async (req, res, next) => {
+    try {
+        if (req.admin) {
+            const user = await userDb.findById(req.params.id, 'id')
+            res.json({
+                status: true,
                 user
             })
+
         }
     } catch (e) {
         console.log(e.message)
@@ -200,5 +215,6 @@ export const adminController = {
     updateInfor,
     logOut,
     getAdmin,
-    getAdmins
+    getAdmins,
+    getUser
 }

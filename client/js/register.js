@@ -18,7 +18,6 @@ $(document).ready(function () {
                 },
                 error: function (data) {
                     const errors = JSON.parse(data.responseText).errors
-                    console.log(errors)
                     for (var i of errors) {
                         errorFunction(i.msg)
                     }
@@ -30,7 +29,6 @@ $(document).ready(function () {
 // ------toast---------------
 import toast from "./toast.js"
 function successFunction(data) {
-    console.log(data)
     if (data.status) {
         toast({
             title: 'Success',

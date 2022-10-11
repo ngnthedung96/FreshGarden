@@ -1,45 +1,54 @@
 $(document).ready(function () {
   if (localStorage.getItem("accessAdminToken")) {
-    $.ajax({
-      type: "GET",
-      url: "http://localhost:3333/api/admins/showusers",
-      headers: {
-        token: 'Bearer ' + localStorage.getItem("accessAdminToken"),
-      },
-      success: function (data) {
-        haveAdminLogin(data)
-        renderUsers(data)
-        logOut()
-      }
-    });
-    $(".btn-add").click(function (e) {
-      const email = document.querySelector('#email').value
-      const password = document.querySelector('#password').value
-      e.preventDefault();
-      $.ajax({
-        type: "POST",
-        url: "http://localhost:3333/api/users/register",
-        data: {
-          email,
-          password
-        },
-        dataType: "json",
-        success: function (data) {
-          successFunction(data)
-        },
-        error: function (data) {
-          const errors = JSON.parse(data.responseText).errors
-          for (var i of errors) {
-            errorFunction(i.msg)
-          }
-        }
-      });
-    });
+    getAdmin()
+
   }
   else {
     window.open('/admin/page-error-400.html')
   }
 });
+
+function getAdmin() {
+  $.ajax({
+    type: "GET",
+    url: "http://localhost:3333/api/admins/showusers",
+    headers: {
+      token: 'Bearer ' + localStorage.getItem("accessAdminToken"),
+    },
+    success: function (data) {
+      haveAdminLogin(data)
+      renderUsers(data)
+      logOut()
+      handleAddUser()
+    }
+  });
+}
+
+function handleAddUser() {
+  $(".btn-add").click(function (e) {
+    const email = document.querySelector('#email').value
+    const password = document.querySelector('#password').value
+    e.preventDefault();
+    $.ajax({
+      type: "POST",
+      url: "http://localhost:3333/api/users/register",
+      data: {
+        email,
+        password
+      },
+      dataType: "json",
+      success: function (data) {
+        successFunction(data)
+      },
+      error: function (data) {
+        const errors = JSON.parse(data.responseText).errors
+        for (var i of errors) {
+          errorFunction(i.msg)
+        }
+      }
+    });
+  });
+}
 
 
 function haveAdminLogin(data) {

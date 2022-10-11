@@ -1,4 +1,11 @@
 $(document).ready(function () {
+    if (localStorage.getItem("accessAdminToken")) {
+        getOrders()
+    }
+
+    // renderPage()
+});
+function getOrders() {
     $.ajax({
         async: false,
         type: "GET",
@@ -16,8 +23,8 @@ $(document).ready(function () {
             logOut()
         }
     });
-    // renderPage()
-});
+}
+
 function logOut() {
     //-------log out--------------
     $('.log-out__btn').click(function (e) {
@@ -134,6 +141,9 @@ function renderOrder(dataOrders) {
             async: false,
             type: "GET",
             url: `http://localhost:3333/api/admins/getuser/${userId}`,
+            headers: {
+                token: 'Bearer ' + localStorage.getItem("accessAdminToken"),
+            },
             dataType: "json",
             success: function (data) {
                 userEmail = data.user.email
@@ -147,6 +157,7 @@ function renderOrder(dataOrders) {
         countTable++
         myData.push(arr)
     }
+
     $("#table_id").DataTable({
         data: myData,
         createdRow: function (row, data, dataIndex) {
@@ -231,106 +242,6 @@ function renderOrder(dataOrders) {
         }
     });
 }
-function renderPagNav(data) {
-    const tableOrderDiv = document.querySelector(".table-orders .row")
-    var pagNav = document.createElement("div")
-    pagNav.classList.add("pagination")
-    var html = `<a href="#" class = "prev">&laquo;</a>`
-    var count = 1
-    for (var i = 0; i < data.numberPage; i++) {
-        if (count === 1) {
-            html += `<a class="pageNumber active" href="#">${count}</a>`
-            count++
-        }
-        else {
-            html += `<a class="pageNumber" href="#">${count}</a>`
-            count++
-        }
-
-    }
-    html += `<a class = "next" href="#">&raquo;</a>`
-    pagNav.innerHTML = html
-    tableOrderDiv.appendChild(pagNav)
-}
-
-function renderPage() {
-    $(".pageNumber").click(function (e) {
-        const parent = e.target.parentElement
-        const activeBtn = parent.querySelector(".active")
-        if (activeBtn) {
-            activeBtn.classList.remove("active")
-        }
-        e.target.classList.add("active")
-        e.preventDefault();
-        $.ajax({
-            type: "GET",
-            url: `http://localhost:3333/api/admins/showorder/${e.target.innerText}`,
-            dataType: "json",
-            headers: {
-                token: 'Bearer ' + localStorage.getItem("accessAdminToken"),
-            },
-            success: function (data) {
-                renderOrders(data)
-                haveAdminLogin(data)
-                showDetail(data)
-            }
-        });
-    });
-    $(".prev").click(function (e) {
-        e.preventDefault();
-        const parent = e.target.parentElement
-        const activeBtn = parent.querySelector(".active")
-        let number = null
-        if (activeBtn) {
-            number = Number(activeBtn.innerText) - 1
-            activeBtn.classList.remove("active")
-
-        }
-        console.log(number)
-        e.preventDefault();
-        $.ajax({
-            type: "GET",
-            url: `http://localhost:3333/api/admins/showorder/${number}`,
-            dataType: "json",
-            headers: {
-                token: 'Bearer ' + localStorage.getItem("accessAdminToken"),
-            },
-            success: function (data) {
-                renderOrders(data)
-                haveAdminLogin(data)
-                showDetail(data)
-            }
-        });
-
-    });
-    $(".next").click(function (e) {
-        e.preventDefault();
-        const parent = e.target.parentElement
-        const activeBtn = parent.querySelector(".active")
-        let number = null
-        if (activeBtn) {
-            number = Number(activeBtn.innerText) + 1
-            activeBtn.classList.remove("active")
-
-        }
-        console.log(number)
-        e.preventDefault();
-        $.ajax({
-            type: "GET",
-            url: `http://localhost:3333/api/admins/showorder/${number}`,
-            dataType: "json",
-            headers: {
-                token: 'Bearer ' + localStorage.getItem("accessAdminToken"),
-            },
-            success: function (data) {
-                renderOrders(data)
-                haveAdminLogin(data)
-                showDetail(data)
-            }
-        });
-    });
-}
-
 
 function haveAdminLogin(data) {
     const loginDiv = document.querySelector(".header-right .default")
@@ -356,10 +267,8 @@ function exportToExcel(fileName, sheetName, table, myData) {
             console.error('Chưa có data');
             return;
         }
-        console.log('exportToExcel', myData);
         let wb;
         const ws = XLSX.utils.json_to_sheet(myData);
-        // console.log('ws', ws);
         var max_width = myData.reduce((w, r) => Math.max(w, r.orderingDate.length, r.user.length, r.price.length, r.receivingDate.length), 10);
         ws["!cols"] = [{ wch: max_width }]
         for (var i in ws) {

@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta code="viewport" content="width=device-width,initial-scale=1">
+    <title>Fresh Garden</title>
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
+    <!-- Custom Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/base.css">
+    <script src="https://kit.fontawesome.com/025c1ecb3f.js" crossorigin="anonymous"></script>
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+</head>
+
+<body>
+
+    <!--*******************
+        Preloader start
+    ********************-->
+    <div id="preloader">
+        <div class="loader">
+            <svg class="circular" viewBox="25 25 50 50">
+                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10" />
+            </svg>
+        </div>
+    </div>
+    <!--*******************
+        Preloader end
+    ********************-->
+
+
+    <!--**********************************
+        Main wrapper start
+    ***********************************-->
+    <div id="main-wrapper">
+
+        <!--**********************************
+            Nav header start
+        ***********************************-->
+        <div class="nav-header">
+            <div class="brand-logo">
+                <a href="index.html">
+                    <b class="logo-abbr"><img src="images/logo.png" alt=""> </b>
+                    <span class="logo-compact"><img src="./images/logo-compact.png" alt=""></span>
+                    <span class="brand-title">
+                        <img src="https://theme.hstatic.net/200000411281/1000827595/14/logo.png?v=158" alt="">
+                    </span>
+                </a>
+            </div>
+        </div>
+        <!--**********************************
+            Nav header end
+        ***********************************-->
+
+        <!--**********************************
+            Header start
+        ***********************************-->
+        <div class="header">
+            <div class="header-content clearfix">
+
+                <div class="nav-control">
+                    <div class="hamburger">
+                        <span class="toggle-icon"><i class="icon-menu"></i></span>
+                    </div>
+                </div>
+                <div class="header-left">
+                    <div class="input-group icons">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-transparent border-0 pr-2 pr-sm-3" id="basic-addon1"><i
+                                    class="mdi mdi-magnify"></i></span>
+                        </div>
+                        <input type="search" class="form-control" placeholder="Search Dashboard"
+                            aria-label="Search Dashboard">
+                        <div class="drop-down animated flipInX d-md-none">
+                            <form action="#">
+                                <input type="text" class="form-control" placeholder="Search">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="header-right">
+                    <ul class="clearfix">
+                        <li class="icons dropdown hide">
+                            <div class="user-email c-pointer position-relative" data-toggle="dropdown">
+                                <span></span>
+                            </div>
+                            <div class="drop-down dropdown-profile animated fadeIn dropdown-menu">
+                                <div class="dropdown-content-body">
+                                    <ul>
+                                        <li>
+                                            <a href="app-profile.html"><i class="icon-user"></i>
+                                                <span>Profile</span></a>
+                                        </li>
+                                        <hr class="my-2">
+                                        <li><a href="#" class="log-out__btn"><i class="icon-key"></i>
+                                                <span>Logout</span></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="icons dropdown default">
+                            <div class="user-email c-pointer position-relative" data-toggle="dropdown">
+                                <span>User</span>
+                            </div>
+                            <div class="drop-down dropdown-profile animated fadeIn dropdown-menu">
+                                <div class="dropdown-content-body">
+                                    <ul>
+                                        <li>
+                                            <a href="./page-register.html"><i class="icon-user"></i>
+                                                <span> Register</span></a>
+                                        </li>
+                                        <hr class="my-2">
+                                        <li>
+                                            <a href="./page-login.html"><i class="icon-user"></i>
+                                                <span>Login</span></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!--**********************************
+            Header end ti-comment-alt
+        ***********************************-->
+
+        <!--**********************************
+            Sidebar start
+        ***********************************-->
+        <div class="nk-sidebar">
+            <div class="nk-nav-scroll">
+                <ul class="metismenu" id="menu">
+                    <li>
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-speedometer menu-icon"></i><span class="nav-text">Trang chủ</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="./index.html">Trang chủ</a></li>
+                            <!-- <li><a href="./index-2.html">Home 2</a></li> -->
+                        </ul>
+                    </li>
+                    <li class="nav-label">Quản lý</li>
+                    <li>
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-menu menu-icon"></i><span class="nav-text">Quản lý khách hàng</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="./table-users.html" aria-expanded="false">Khách hàng</a></li>
+                            <li><a href="./table-add-user.html" aria-expanded="false">Thêm khách hàng</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-menu menu-icon"></i><span class="nav-text">Quản lý sản phẩm</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="./table-products.html" aria-expanded="false">Sản phẩm</a></li>
+                            <li><a href="./table-add-product.html" aria-expanded="false">Thêm sản phẩm</a></li>
+                            <li><a href="./table-edit-product.html" aria-expanded="false">Cập nhật sản phẩm</a></li>
+                            <li><a href="./table-delete-product.html" aria-expanded="false">Xóa sản phẩm</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-menu menu-icon"></i><span class="nav-text">Quản lý đơn hàng</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="./table-orders.html" aria-expanded="false">Đơn hàng</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-menu menu-icon"></i><span class="nav-text">Quản lý mã giảm giá</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="./table-codes.html" aria-expanded="false">Mã giảm giá</a></li>
+                            <li><a href="./table-add-code.html" aria-expanded="false">Thêm mã giảm giá</a></li>
+                            <li><a href="./table-edit-code.html" aria-expanded="false">Cập nhật mã giảm giá</a></li>
+                            <li><a href="./table-delete-code.html" aria-expanded="false">Xóa mã giảm giá</a></li>
+
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!--**********************************
+            Sidebar end
+        ***********************************-->
+
+        <!--**********************************
+            Content body start
+        ***********************************-->
+        <div class="content-body">
+
+            <div class="row page-titles mx-0">
+                <div class="col p-md-0">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="index.html">Trang chủ</a></li>
+                        <li class="breadcrumb-item"><a href="javascript:void(0)">Quản lý mã giảm giá</a></li>
+                        <li class="breadcrumb-item active"><a href="javascript:void(0)">Cập nhật mã giảm giá</a></li>
+                    </ol>
+                </div>
+            </div>
+            <!-- row -->
+            <div class="container-fluid table-edit-codes">
+                <div class="row">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-title">
+                                <h4>Chỉnh sửa mã giảm giá</h4>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Mã giảm giá</th>
+                                            <th>Mức giảm</th>
+                                            <th>Số lượng</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><input id="new-code" type="code" class="form-control"
+                                                    placeholder="Giá nhập">
+                                            </td>
+                                            <td><input id="new-code-discount" class="form-control"
+                                                    placeholder="Giá bán">
+                                            </td>
+                                            <td><input id="new-code-quantity" type="number" class="form-control"
+                                                    placeholder="Số lượng">
+                                            </td>
+                                            <td><button type="button" class="btn btn-outline-primary btn-edit-codes">Cập
+                                                    nhật mã giảm
+                                                    giá</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container-fluid table-codes">
+                <div class="row">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="table-responsive table-hover">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>ID</th>
+                                            <th>Mã giảm giá</th>
+                                            <th>Giảm</th>
+                                            <th>Ngày tạo</th>
+                                            <th>Số lượng</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- #/ container -->
+        </div>
+        <!--**********************************
+            Content body end
+        ***********************************-->
+    </div>
+    <div id="toast">
+
+    </div>
+    <!--**********************************
+        Main wrapper end
+    ***********************************-->
+
+    <!--**********************************
+        Scripts
+    ***********************************-->
+    <script type="module" src="./js/table-edit-code.js"></script>
+    <script src="plugins/common/common.min.js"></script>
+    <script src="js/custom.min.js"></script>
+    <script src="js/settings.js"></script>
+    <script src="js/gleek.js"></script>
+    <script src="js/styleSwitcher.js"></script>
+
+</body>
+
+</html>

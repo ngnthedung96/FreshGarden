@@ -1,54 +1,68 @@
 $(document).ready(function () {
     if (localStorage.getItem("accessAdminToken")) {
-        $.ajax({
-            type: "GET",
-            url: "http://localhost:3333/api/admins/home",
-            headers: {
-                token: 'Bearer ' + localStorage.getItem("accessAdminToken"),
-            },
-            success: function (data) {
-                logOut()
-                haveAdminLogin(data)
-            }
-        });
-        $.ajax({
-            type: "GET",
-            url: "http://localhost:3333/api/pay/showall",
-            headers: {
-                token: 'Bearer ' + localStorage.getItem("accessAdminToken"),
-            },
-            success: function (data) {
-                renderNumberProduct(data)
-                renderNetProfit(data)
-                getNumberProductMax(data)
-                renderRatePer(data)
-            }
-        });
-        $.ajax({
-            type: "GET",
-            url: "http://localhost:3333/api/admins/showusers",
-            headers: {
-                token: 'Bearer ' + localStorage.getItem("accessAdminToken"),
-            },
-            success: function (data) {
-                renderNewCustomers(data)
-            }
-        });
-        $.ajax({
-            type: "GET",
-            url: "http://localhost:3333/api/admins/showalladmins",
-            headers: {
-                token: 'Bearer ' + localStorage.getItem("accessAdminToken"),
-            },
-            success: function (data) {
-                renderAllAdmins(data)
-            }
-        });
+        getAdmin()
     }
     else {
         window.open('/admin/page-error-400.html')
     }
 });
+
+function getAdmin() {
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:3333/api/admins/home",
+        headers: {
+            token: 'Bearer ' + localStorage.getItem("accessAdminToken"),
+        },
+        success: function (data) {
+            logOut()
+            haveAdminLogin(data)
+            getPay()
+            getUser()
+            getAllAdmin()
+        }
+    });
+}
+function getPay() {
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:3333/api/pay/showall",
+        headers: {
+            token: 'Bearer ' + localStorage.getItem("accessAdminToken"),
+        },
+        success: function (data) {
+            renderNumberProduct(data)
+            renderNetProfit(data)
+            getNumberProductMax(data)
+            renderRatePer(data)
+        }
+    });
+}
+function getUser() {
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:3333/api/admins/showusers",
+        headers: {
+            token: 'Bearer ' + localStorage.getItem("accessAdminToken"),
+        },
+        success: function (data) {
+            renderNewCustomers(data)
+        }
+    });
+}
+
+function getAllAdmin() {
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:3333/api/admins/showalladmins",
+        headers: {
+            token: 'Bearer ' + localStorage.getItem("accessAdminToken"),
+        },
+        success: function (data) {
+            renderAllAdmins(data)
+        }
+    });
+}
 
 
 
@@ -166,16 +180,17 @@ function renderNewCustomers(data) {
         const [checkYear, checkMonth] = time
         if (month === Number(checkMonth)) {
             countNumber++
+
         }
-        const newCustomer = document.querySelector("#new-customers")
-        newCustomer.innerHTML =
-            `<h3 class="card-title text-white">New Customers</h3>
+    }
+    const newCustomer = document.querySelector("#new-customers")
+    newCustomer.innerHTML =
+        `<h3 class="card-title text-white">New Customers</h3>
         <div class="d-inline-block">
             <h2 class="text-white">${countNumber}</h2>
             <p class="text-white mb-0">${monthNames[month - 1]}- ${year}</p>
         </div>
         <span class="float-right display-5 opacity-5"><i class="fa fa-users"></i></span>`
-    }
 }
 
 function getNumberProductMax(data) {

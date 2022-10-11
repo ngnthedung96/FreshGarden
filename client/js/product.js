@@ -10,9 +10,7 @@ const sliderEffect = {
       a.classList.remove('borderSlider')
     }
     subImg[this.currentIndex].classList.add('borderSlider')
-    setTimeout(() => {
-      mainImg.src = subImg[this.currentIndex].src
-    }, 200)
+    mainImg.src = subImg[this.currentIndex].src
   },
   clickImg() {
     var __this = this
@@ -123,7 +121,6 @@ function postProductTocart(data, id) {
         },
         dataType: "json",
         success: function (data) {
-          console.log(data)
           successFunction(data)
         },
         error: function (data) {

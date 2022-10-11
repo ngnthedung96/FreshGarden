@@ -1,24 +1,28 @@
 $(document).ready(function () {
   if (localStorage.getItem("accessAdminToken")) {
-    $.ajax({
-      type: "GET",
-      url: "http://localhost:3333/api/admins/showitems",
-      headers: {
-        token: 'Bearer ' + localStorage.getItem("accessAdminToken"),
-      },
-      success: function (data) {
-        renderProducts(data)
-        haveAdminLogin(data)
-        postItemToDb()
-        logOut()
-
-      }
-    });
+    getItems()
   }
   else {
     window.open('/admin/page-error-400.html')
   }
 });
+
+function getItems() {
+  $.ajax({
+    type: "GET",
+    url: "http://localhost:3333/api/admins/showitems",
+    headers: {
+      token: 'Bearer ' + localStorage.getItem("accessAdminToken"),
+    },
+    success: function (data) {
+      renderProducts(data)
+      haveAdminLogin(data)
+      postItemToDb()
+      logOut()
+
+    }
+  });
+}
 
 
 function renderProducts(data) {

@@ -145,20 +145,19 @@
         <div class="nk-sidebar">
             <div class="nk-nav-scroll">
                 <ul class="metismenu" id="menu">
-                    <li class="nav-label">Dashboard</li>
                     <li>
                         <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                            <i class="icon-speedometer menu-icon"></i><span class="nav-text">Dashboard</span>
+                            <i class="icon-speedometer menu-icon"></i><span class="nav-text">Trang chủ</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="./index.html">Home 1</a></li>
+                            <li><a href="./index.html">Trang chủ</a></li>
                             <!-- <li><a href="./index-2.html">Home 2</a></li> -->
                         </ul>
                     </li>
                     <li class="nav-label">Quản lý</li>
                     <li>
                         <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                            <i class="icon-menu menu-icon"></i><span class="nav-text">Users</span>
+                            <i class="icon-menu menu-icon"></i><span class="nav-text">Quản lý khách hàng</span>
                         </a>
                         <ul aria-expanded="false">
                             <li><a href="./table-users.html" aria-expanded="false">Khách hàng</a></li>
@@ -167,18 +166,18 @@
                     </li>
                     <li>
                         <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                            <i class="icon-menu menu-icon"></i><span class="nav-text">Products</span>
+                            <i class="icon-menu menu-icon"></i><span class="nav-text">Quản lý sản phẩm</span>
                         </a>
                         <ul aria-expanded="false">
                             <li><a href="./table-products.html" aria-expanded="false">Sản phẩm</a></li>
                             <li><a href="./table-add-product.html" aria-expanded="false">Thêm sản phẩm</a></li>
-                            <li><a href="./table-edit-product.html" aria-expanded="false">Sửa sản phẩm</a></li>
+                            <li><a href="./table-edit-product.html" aria-expanded="false">Cập nhật sản phẩm</a></li>
                             <li><a href="./table-delete-product.html" aria-expanded="false">Xóa sản phẩm</a></li>
                         </ul>
                     </li>
                     <li>
                         <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                            <i class="icon-menu menu-icon"></i><span class="nav-text">Orders</span>
+                            <i class="icon-menu menu-icon"></i><span class="nav-text">Quản lý đơn hàng</span>
                         </a>
                         <ul aria-expanded="false">
                             <li><a href="./table-orders.html" aria-expanded="false">Đơn hàng</a></li>
@@ -186,12 +185,14 @@
                     </li>
                     <li>
                         <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                            <i class="icon-menu menu-icon"></i><span class="nav-text">Sales</span>
+                            <i class="icon-menu menu-icon"></i><span class="nav-text">Quản lý mã giảm giá</span>
                         </a>
                         <ul aria-expanded="false">
                             <li><a href="./table-codes.html" aria-expanded="false">Mã giảm giá</a></li>
                             <li><a href="./table-add-code.html" aria-expanded="false">Thêm mã giảm giá</a></li>
-                           
+                            <li><a href="./table-edit-code.html" aria-expanded="false">Cập nhật mã giảm giá</a></li>
+                            <li><a href="./table-delete-code.html" aria-expanded="false">Xóa mã giảm giá</a></li>
+
                         </ul>
                     </li>
                 </ul>
@@ -209,8 +210,9 @@
             <div class="row page-titles mx-0">
                 <div class="col p-md-0">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="javascript:void(0)">Dashboard</a></li>
-                        <li class="breadcrumb-item active"><a href="javascript:void(0)">Order</a></li>
+                        <li class="breadcrumb-item"><a href="index.html">Trang chủ</a></li>
+                        <li class="breadcrumb-item"><a href="javascript:void(0)">Quản lý đơn hàng</a></li>
+                        <li class="breadcrumb-item active"><a href="javascript:void(0)">Đơn hàng</a></li>
                     </ol>
                 </div>
             </div>
@@ -231,7 +233,7 @@
                                             <th>Ngày đặt</th>
                                             <th>Sản phẩm</th>
                                             <th>Tổng tiền</th>
-                                            <th class = "hide"></th>
+                                            <th class="hide"></th>
                                             <th>Chi tiết</th>
                                             <th>Ngày nhận</th>
                                         </tr>
@@ -263,7 +265,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                       
+
                     </tbody>
                 </table>
                 <div class="footer-modal">
@@ -290,7 +292,7 @@
                 </div>
             </div>
         </div>
-        
+
     </div>
     <div id="toast">
 
@@ -302,14 +304,15 @@
     <!--**********************************
         Scripts
     ***********************************-->
-    
+
     <script src="plugins/common/common.min.js"></script>
     <script src="js/custom.min.js"></script>
     <script src="js/settings.js"></script>
     <script src="js/gleek.js"></script>
     <script src="js/styleSwitcher.js"></script>
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
-<script type="module" src="./js/table-orders.js"></script>
+    <script type="text/javascript" charset="utf8"
+        src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
+    <script type="module" src="./js/table-orders.js"></script>
 
 </body>
 

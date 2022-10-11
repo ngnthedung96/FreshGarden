@@ -34,14 +34,14 @@ const generateAccessToken = (user) => {
     return jwt.sign({
         id: userId
     },
-        "secretKey")
+        "secretUserKey")
 }
 const generateRefreshToken = (user) => {
     const userId = user.dataValues.id
     return jwt.sign({
         id: userId
     },
-        "secretKey",
+        "secretUserKey",
         {
             expiresIn: "365d"
         })
@@ -110,18 +110,7 @@ const home = async (req, res, next) => {
     }
 }
 
-const getUser = async (req, res, next) => {
-    try {
-        const user = await userDb.findById(req.params.id, 'id')
-        res.json({
-            status: true,
-            user
-        })
-    } catch (e) {
-        console.log(e.message)
-        res.sendStatus(500) && next(e)
-    }
-}
+
 
 const logOut = async (req, res, next) => {
     try {
@@ -178,12 +167,12 @@ const updateInfor = async (req, res, next) => {
 
 const showUsers = async (req, res, next) => {
     try {
-        if (req.user) {
+        if (req.admin) {
             const user = await userDb.findUsers()
             res.json({
                 status: true,
                 user,
-                id: req.user.id
+                id: req.admin.id
             })
         }
     } catch (e) {
@@ -201,6 +190,5 @@ export const userController = {
     logOut,
     getInfor,
     updateInfor,
-    showUsers,
-    getUser
+    showUsers
 }

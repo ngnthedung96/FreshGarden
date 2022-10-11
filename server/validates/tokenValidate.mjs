@@ -1,16 +1,34 @@
 import jwt from "jsonwebtoken"
 
-const tokenValidate = {
+const tokenUserValidate = {
   //verifyToken 
   verifyToken: (req, res, next) => {
     const token = req.headers.token
     if (token) {
       const accessToken = token.split(" ")[1]
-      jwt.verify(accessToken, "secretKey", (err, member) => {
+      jwt.verify(accessToken, "secretUserKey", (err, member) => {
         if (err) {
           return res.status(403).json("Token isn't valid")
         }
         req.user = member
+        next()
+      })
+    }
+    else {
+      return res.status(401)
+    }
+  }
+}
+const tokenAdminValidate = {
+  //verifyToken 
+  verifyToken: (req, res, next) => {
+    const token = req.headers.token
+    if (token) {
+      const accessToken = token.split(" ")[1]
+      jwt.verify(accessToken, "secretAdminKey", (err, member) => {
+        if (err) {
+          return res.status(403).json("Token isn't valid")
+        }
         req.admin = member
         next()
       })
@@ -21,4 +39,7 @@ const tokenValidate = {
   }
 }
 
-export default tokenValidate 
+export const tokenValidate = {
+  tokenUserValidate,
+  tokenAdminValidate
+} 

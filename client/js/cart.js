@@ -458,11 +458,8 @@ function deleteOrder() {
       }
       const id = Number(parentEl.querySelector('.table-order-cart-id').innerText)
       $.ajax({
-        type: "POST",
-        url: "http://localhost:3333/api/cart/delete",
-        data: {
-          "id": id
-        },
+        type: "DELETE",
+        url: `http://localhost:3333/api/cart/delete/${id}`,
         dataType: "json",
         success: function (data) {
           successFunction(data)
@@ -476,6 +473,7 @@ function deleteOrder() {
 
 
 function pay() {
+  $(".btn-buy").unbind()
   $(".btn-buy").click(function (e) {
     var checkOrder = document.querySelector(".cart-content h2.hide")
     if (checkOrder) {

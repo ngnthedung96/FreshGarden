@@ -35,13 +35,30 @@ const createSale = async (code, user_id) => {
 const findAllSale = async (value, field) => {
     let res = null;
     try {
-        res = await Sale.findAll({}
+        res = await Sale.findAll(
         )
     }
     catch (err) {
         logger.error(err)
     }
     return res;
+
+}
+const findAllCode = async (value, field) => {
+    let res = null;
+    try {
+        res = await Sale.findAll({
+            where: {
+                "code": value
+            }
+        }
+        )
+    }
+    catch (err) {
+        logger.error(err)
+    }
+    return res;
+
 }
 
 const findSaleOfUser = async (user_id, code, field) => {
@@ -91,6 +108,20 @@ const deleteSale = async (value, field) => {
     }
     return res;
 }
+const deleteSaleByCode = async (value, field) => {
+    let res = null;
+    try {
+        res = await Sale.destroy(
+            {
+                where: { "code": value },
+            }
+        )
+    }
+    catch (err) {
+        logger.error(err)
+    }
+    return res;
+}
 
 
 export const saleDb = {
@@ -98,5 +129,7 @@ export const saleDb = {
     findAllSale,
     findSaleOfUser,
     deleteSale,
-    findSalesOfUser
+    findSalesOfUser,
+    findAllCode,
+    deleteSaleByCode
 }

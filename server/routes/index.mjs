@@ -6,7 +6,7 @@ import { itemsController } from '../controllers/index.mjs'
 import { payController } from '../controllers/index.mjs'
 import userValidate from '../validates/users.mjs'
 import adminValidate from '../validates/admins.mjs'
-import tokenValidate from '../validates/tokenValidate.mjs'
+import { tokenValidate } from '../validates/tokenValidate.mjs'
 import { codesController } from '../controllers/index.mjs'
 import { saleController } from '../controllers/index.mjs'
 import { citiesController } from '../controllers/index.mjs'
@@ -27,44 +27,42 @@ router.post('/users/login',
 //     tokenValidate.verifyToken, // run valdiate
 // )
 router.post('/users/logout',
-    tokenValidate.verifyToken,
+    tokenValidate.tokenUserValidate.verifyToken,
     userController.logOut
 )
 
 router.get('/users/home',
-    tokenValidate.verifyToken,
+    tokenValidate.tokenUserValidate.verifyToken,
+
     userController.home
 )
 
 router.get('/users/infor',
-    tokenValidate.verifyToken,
+    tokenValidate.tokenUserValidate.verifyToken,
+
     userController.getInfor
 )
-
-router.post('/users/updateinfor',
-    tokenValidate.verifyToken,
-    userValidate('update'), // run valdiate
-    userController.updateInfor
-)
-
 //---------------------- Cart--------------------------------
 router.post('/cart/create',
-    tokenValidate.verifyToken,
+    tokenValidate.tokenUserValidate.verifyToken,
+
     cartController.createProduct
 )
 router.post('/cart/save',
     cartController.createProduct
 )
 router.get('/cart/show',
-    tokenValidate.verifyToken,
+    tokenValidate.tokenUserValidate.verifyToken,
+
     cartController.showProducts
 )
 router.get('/cart/showAll',
-    tokenValidate.verifyToken,
+    tokenValidate.tokenUserValidate.verifyToken,
+
     cartController.showAllProducts
 )
 
-router.post('/cart/delete',
+router.delete('/cart/delete/:id',
     cartController.deleteProduct
 )
 // --------------------------items--------------------------
@@ -87,17 +85,19 @@ router.post('/pay/create',
     payController.createOrder
 )
 router.get('/pay/show',
-    tokenValidate.verifyToken,
+    tokenValidate.tokenUserValidate.verifyToken,
+
     payController.showOrders
 )
 
 router.get('/pay/showall',
-    tokenValidate.verifyToken,
+    tokenValidate.tokenAdminValidate.verifyToken,
     payController.showAllOrders
 )
 
 router.put('/pay/updateRate',
-    tokenValidate.verifyToken,
+    tokenValidate.tokenUserValidate.verifyToken,
+
     payController.updateRate
 )
 
@@ -108,12 +108,14 @@ router.post('/admins/register',
 )
 
 router.get('/admins/home',
-    tokenValidate.verifyToken,
+    tokenValidate.tokenAdminValidate.verifyToken,
+
     adminController.getAdmin
 )
 
 router.get('/admins/showalladmins',
-    tokenValidate.verifyToken,
+    tokenValidate.tokenAdminValidate.verifyToken,
+
     adminController.getAdmins
 )
 
@@ -124,7 +126,8 @@ router.post('/admins/login',
 
 
 router.get('/admins/showusers',
-    tokenValidate.verifyToken,
+    tokenValidate.tokenAdminValidate.verifyToken,
+
     userController.showUsers
 )
 router.get('/admins/infor/:id',
@@ -132,66 +135,93 @@ router.get('/admins/infor/:id',
 )
 
 router.get('/admins/showitems',
-    tokenValidate.verifyToken,
+    tokenValidate.tokenAdminValidate.verifyToken,
+
     itemsController.showItemsToken
 )
 router.post('/admins/createitem',
     adminValidate('addItem'), // run valdiate
-    tokenValidate.verifyToken,
+    tokenValidate.tokenAdminValidate.verifyToken,
+
     itemsController.createItem
 )
 
 router.delete('/admins/deleteitem/:id',
-    tokenValidate.verifyToken,
+    tokenValidate.tokenAdminValidate.verifyToken,
+
     itemsController.deleteItem
 )
 
-router.put('/admins/updateitem',
-    tokenValidate.verifyToken,
+router.put('/admins/updateitem/',
+    tokenValidate.tokenAdminValidate.verifyToken,
+
     itemsController.updateItem
 )
 
 router.post('/admins/logout',
     adminController.logOut
 )
-router.get('/admins/showorder/:page',
-    tokenValidate.verifyToken,
-    payController.showOrdersByPage
-)
 router.get('/admins/showorder',
-    tokenValidate.verifyToken,
+    tokenValidate.tokenAdminValidate.verifyToken,
+
     payController.showAllOrders
 )
 
 router.get('/admins/getuser/:id',
-    userController.getUser
+    tokenValidate.tokenAdminValidate.verifyToken,
+    adminController.getUser
 )
 
 
 
 //-----------------sale----------------------
 router.get('/sale/show/',
-    tokenValidate.verifyToken,
+    tokenValidate.tokenUserValidate.verifyToken,
+
     saleController.showSalesOfUser
 )
-router.get('/sale/show/:id/:code',
-    saleController.showSaleOfUser
+router.get('/sale/showall/',
+    tokenValidate.tokenAdminValidate.verifyToken,
+
+    saleController.showSales
 )
 router.get('/code/show',
-    tokenValidate.verifyToken,
+    tokenValidate.tokenAdminValidate.verifyToken,
+
     codesController.showCode
 )
 router.get('/code/find/:code',
-    tokenValidate.verifyToken,
+    tokenValidate.tokenUserValidate.verifyToken,
+
     codesController.findCode
 )
+
+router.post('/code/create',
+    adminValidate('addCode'), // run valdiate
+    tokenValidate.tokenAdminValidate.verifyToken,
+    codesController.createCode
+)
+router.put('/code/edit',
+    tokenValidate.tokenAdminValidate.verifyToken,
+    codesController.editCode
+)
+router.put('/code/edit',
+    tokenValidate.tokenAdminValidate.verifyToken,
+    codesController.editCode
+)
+router.delete('/code/delete/:id',
+    tokenValidate.tokenAdminValidate.verifyToken,
+    codesController.deleteCode
+)
+
 
 
 
 
 router.post('/sale/create',
-    adminValidate('addSale'), // run valdiate
-    tokenValidate.verifyToken,
+
+    tokenValidate.tokenAdminValidate.verifyToken,
+
     saleController.createSale
 )
 // router.delete('/sale/delete',

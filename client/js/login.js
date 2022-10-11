@@ -18,7 +18,6 @@ $(document).ready(function () {
                 },
                 error: function (data) {
                     const errors = JSON.parse(data.responseText).errors
-                    console.log(errors)
                     for (var i of errors) {
                         errorFunction(i.msg)
                     }

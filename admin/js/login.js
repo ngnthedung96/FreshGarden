@@ -1,4 +1,7 @@
 $(document).ready(function () {
+  handleLogin()
+});
+function handleLogin() {
   $(".login-form__btn").click(function (e) {
     e.preventDefault();
     const email = document.querySelector(".form-group #email").value
@@ -28,7 +31,7 @@ $(document).ready(function () {
       errorFunction("Vui lòng nhập đủ thông tin")
     }
   });
-});
+}
 
 
 // ------toast---------------

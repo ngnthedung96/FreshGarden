@@ -38,6 +38,9 @@ app.get('/', (req, res) => {
         }
     })
 })
+app.get('/home', (req, res) => {
+    res.json('this is home')
+})
 
 // điều hướng routes bắt đầu bằng /api/...
 app.use('/api', routes)

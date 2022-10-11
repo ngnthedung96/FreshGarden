@@ -1,4 +1,4 @@
-import { codeDb } from '../dbs/index.mjs'
+import { codeDb, userDb } from '../dbs/index.mjs'
 import { saleDb } from '../dbs/index.mjs'
 import { validationResult } from 'express-validator';
 import jwt from "jsonwebtoken"
@@ -8,11 +8,14 @@ import { resolve } from 'path';
 
 const showSales = async (req, res, next) => {
     try {
-        const codes = await saleDb.findAllSale()
-        res.json({
-            status: true,
-            codes
-        })
+        if (req.admin) {
+            const codes = await saleDb.findAllSale()
+            res.json({
+                status: true,
+                codes
+            })
+
+        }
     }
     catch (err) {
         console.log(err)
@@ -20,7 +23,6 @@ const showSales = async (req, res, next) => {
 }
 
 const createSale = async (req, res, next) => {
-    console.log(req.body)
     var { code, user_id } = req.body;
 
     const errors = validationResult(req);
@@ -29,7 +31,7 @@ const createSale = async (req, res, next) => {
         return;
     }
     try {
-        if (req.user) {
+        if (req.admin) {
             var sale = await saleDb.createSale(code, user_id);
             res.status(200).json({
                 status: true,
@@ -39,7 +41,6 @@ const createSale = async (req, res, next) => {
                     user_id: user_id
                 }
             });
-            next()
         }
     } catch (e) {
         console.log(e.message)

@@ -15,13 +15,14 @@ const Code = sequelize.define('Code', {
         allowNull: false
     }
 }, {});
-const createCode = async (code, discount) => {
+const createCode = async (code, discount, number) => {
     let res = null;
     try {
         res = await Code.create({
             code: code,
-            discount: discount
-        }, { fields: ['code', 'discount'] })
+            discount: discount,
+            number
+        }, { fields: ['code', 'discount', 'number'] })
     } catch (err) {
         logger.error(err)
     }
@@ -54,10 +55,38 @@ const findCode = async (value, field) => {
     }
     return res;
 }
-
+const findCodeById = async (value, field) => {
+    let res = null;
+    try {
+        res = await Code.findOne({
+            where: { "id": value }
+        }
+        )
+    }
+    catch (err) {
+        logger.error(err)
+    }
+    return res;
+}
+const deleteCode = async (value, field) => {
+    let res = null;
+    try {
+        res = await Code.destroy(
+            {
+                where: { "id": value },
+            }
+        )
+    }
+    catch (err) {
+        logger.error(err)
+    }
+    return res;
+}
 
 export const codeDb = {
     createCode,
     findAllCode,
-    findCode
+    findCode,
+    findCodeById,
+    deleteCode
 }

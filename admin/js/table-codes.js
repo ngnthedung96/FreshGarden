@@ -1,23 +1,25 @@
 $(document).ready(function () {
     if (localStorage.getItem("accessAdminToken")) {
-        $.ajax({
-            type: "GET",
-            url: "http://localhost:3333/api/code/show",
-            headers: {
-                token: 'Bearer ' + localStorage.getItem("accessAdminToken"),
-            },
-            success: function (data) {
-                renderCodes(data)
-                logOut()
-                haveAdminLogin(data)
-            }
-        });
+        getCodes()
     }
     else {
         window.open('/admin/page-error-400.html')
     }
 });
-
+function getCodes() {
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:3333/api/code/show",
+        headers: {
+            token: 'Bearer ' + localStorage.getItem("accessAdminToken"),
+        },
+        success: function (data) {
+            renderCodes(data)
+            logOut()
+            haveAdminLogin(data)
+        }
+    });
+}
 function renderCodes(data) {
     const bodyTable = document.querySelector('.table-codes .table tbody')
     var count = 1

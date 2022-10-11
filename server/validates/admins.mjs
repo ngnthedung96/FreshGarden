@@ -71,25 +71,23 @@ const validate = (method) => {
       ]
     }
       break;
-    case 'addSale': {
+    case 'addCode': {
       err = [
-        body('code', 'Code không hợp lệ').exists().custom(value => {
-          return codeDb.findCode(value, 'name').then(code => {
-            if (!code) {
-              return Promise.reject('Code không tồn tại');
-            }
-            else if (Number(code.number) === 0) {
-              return Promise.reject('Code đã sử dụng hết ');
+        body('code', 'Mã không hợp lệ').trim().isLength({ min: 3 }).exists().custom(value => {
+          return codeDb.findCode(value, 'code').then(code => {
+            if (code) {
+              return Promise.reject('Mã đã được sử dụng');
             }
           });
         }),
-        body('user_id', 'ID khách hàng không hợp lệ').exists().custom(value => {
-          return userDb.findById(value, 'id').then(user => {
-            if (!user) {
-              return Promise.reject('Khách hàng không tồn tại');
-            }
-          });
-        })
+        body('discount', 'Mức giảm không hợp lệ').isLength({ min: 2 }).custom((value, { req }) => {
+          const check = ['%']
+          if (!check.includes(value.slice(-1))) {
+            throw new Error('Mức giảm thiếu kí tự %');
+          }
+          return true;
+        }),
+        body('number', 'Số lượng không hợp lệ').isLength({ min: 1 })
       ]
     }
       break;

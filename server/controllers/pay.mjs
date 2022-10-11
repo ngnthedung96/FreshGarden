@@ -28,8 +28,32 @@ const createOrder = async (req, res, next) => {
     // add code
 
     //------------------price---------------
-    if ((handlePriceToCal(oldPrice) - handlePriceToCal(shipFee)) > 100000) {
-      await saleDb.createSale("GIAM10", user_id)
+    if ((handlePriceToCal(oldPrice) - handlePriceToCal(shipFee)) > 500000) {
+      const checkCode = await codeDb.findCode("GIAM30")
+      if (checkCode && checkCode.dataValues.number >= 1) {
+        await saleDb.createSale(checkCode.dataValues.code, user_id)
+        await checkCode.update({
+          number: checkCode.dataValues.number - 1
+        })
+      }
+    }
+    else if ((handlePriceToCal(oldPrice) - handlePriceToCal(shipFee)) > 200000) {
+      const checkCode = await codeDb.findCode("GIAM20")
+      if (checkCode && checkCode.dataValues.number >= 1) {
+        await saleDb.createSale(checkCode.dataValues.code, user_id)
+        await checkCode.update({
+          number: Number(checkCode.dataValues.number) - 1
+        })
+      }
+    }
+    else if ((handlePriceToCal(oldPrice) - handlePriceToCal(shipFee)) > 100000) {
+      const checkCode = await codeDb.findCode("GIAM10")
+      if (checkCode && checkCode.dataValues.number >= 1) {
+        await saleDb.createSale(checkCode.dataValues.code, user_id)
+        await checkCode.update({
+          number: checkCode.dataValues.number - 1
+        })
+      }
     }
     // add order
     const order = await payDb.createOrder(user_id, note, price, code, sale_id, date, time, shipFee,
@@ -79,12 +103,12 @@ const showOrders = async (req, res, next) => {
 }
 const showAllOrders = async (req, res, next) => {
   try {
-    if (req.user) {
+    if (req.admin) {
       const orders = await payDb.findAllOrders()
       res.json({
         status: true,
         orders,
-        id: req.user.id
+        id: req.admin.id
       })
     }
   }

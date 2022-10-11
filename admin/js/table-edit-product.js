@@ -1,23 +1,29 @@
 $(document).ready(function () {
   if (localStorage.getItem("accessAdminToken")) {
-    $.ajax({
-      type: "GET",
-      url: "http://localhost:3333/api/admins/showitems",
-      headers: {
-        token: 'Bearer ' + localStorage.getItem("accessAdminToken"),
-      },
-      success: function (data) {
-        renderProducts(data)
-        haveAdminLogin(data)
-        editProducts()
-        logOut()
-      }
-    });
+    getItems()
   }
   else {
     window.open('/admin/page-error-400.html')
   }
 });
+
+function getItems() {
+  $.ajax({
+    type: "GET",
+    url: "http://localhost:3333/api/admins/showitems",
+    headers: {
+      token: 'Bearer ' + localStorage.getItem("accessAdminToken"),
+    },
+    success: function (data) {
+      renderProducts(data)
+      haveAdminLogin(data)
+      editProducts()
+      logOut()
+    }
+  });
+}
+
+
 function logOut() {
   //-------log out--------------
   $('.log-out__btn').click(function (e) {
@@ -79,7 +85,7 @@ function editProducts() {
         e.preventDefault();
         $.ajax({
           type: "PUT",
-          url: "http://localhost:3333/api/admins/updateitem",
+          url: `http://localhost:3333/api/admins/updateitem/`,
           data: {
             id: id,
             name: newName.value,
@@ -93,8 +99,11 @@ function editProducts() {
             token: 'Bearer ' + localStorage.getItem("accessAdminToken"),
           },
           success: function (data) {
-            console.log(data)
             successFunction(data)
+          },
+          error: function (data) {
+            const errors = JSON.parse(data.responseText).errors
+            errorFunction(errors[0].msg)
           }
         });
 

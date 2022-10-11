@@ -1,4 +1,8 @@
 $(document).ready(function () {
+    getPay()
+});
+
+function getPay() {
     $.ajax({
         type: "GET",
         url: "http://localhost:3333/api/pay/show",
@@ -12,11 +16,9 @@ $(document).ready(function () {
             rateProduct(data)
         }
     });
-});
+}
 
 function renderOrder(data) {
-    console.log(data)
-
     const historyContentDiv = document.querySelector('.history-content')
     for (var order of data.orders) {
         const dateOrder = moment(order.createdAt).format("DD-MM-YYYY")

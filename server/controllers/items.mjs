@@ -18,12 +18,12 @@ const showItems = async (req, res, next) => {
 
 const showItemsToken = async (req, res, next) => {
   try {
-    if (req.user) {
+    if (req.admin) {
       const items = await itemsDb.findItems()
       res.json({
         status: true,
         items: items,
-        id: req.user.id
+        id: req.admin.id
       })
     }
   }
@@ -71,15 +71,14 @@ const createItem = async (req, res, next) => {
     for (var i of img) {
       imgs.push(JSON.stringify(i))
     }
-    if (req.user) {
-      console.log(name, imPrice, category, price, number, imgs)
+    if (req.admin) {
       const product = await itemsDb.createItem(name, category, imPrice, price, number, imgs);
       res.status(200).json({
         status: true,
         msg: 'Thêm sản phẩm thành công',
         data: {
           product,
-          adminId: req.user.id,
+          adminId: req.admin.id,
         }
       });
       next()
@@ -97,7 +96,7 @@ const updateItem = async (req, res, next) => {
     imgs.push(JSON.stringify(i))
   }
   try {
-    if (req.user) {
+    if (req.admin) {
       const item = await itemsDb.findItem(id, 'id')
       await item.update({
         name: name,

@@ -1,54 +1,69 @@
 $(document).ready(function () {
     if (localStorage.getItem("accessAdminToken")) {
-        $.ajax({
-            type: "GET",
-            url: "http://localhost:3333/api/admins/home",
-            headers: {
-                token: 'Bearer ' + localStorage.getItem("accessAdminToken"),
-            },
-            success: function (data) {
-                haveAdminLogin(data)
-                logOut()
-            }
-        });
-        $.ajax({
-            type: "GET",
-            url: "http://localhost:3333/api/sale/show",
-            success: function (data) {
-                renderSales(data)
-            }
-        });
-        $(".btn-add").click(function (e) {
-            const code = document.querySelector('#code').value
-            const user_id = document.querySelector('#user-id').value
-            e.preventDefault();
-            $.ajax({
-                type: "POST",
-                url: "http://localhost:3333/api/sale/create",
-                data: {
-                    code,
-                    user_id
-                },
-                headers: {
-                    token: 'Bearer ' + localStorage.getItem("accessAdminToken"),
-                },
-                dataType: "json",
-                success: function (data) {
-                    successFunction(data)
-                },
-                error: function (data) {
-                    const errors = JSON.parse(data.responseText).errors
-                    for (var i of errors) {
-                        errorFunction(i.msg)
-                    }
-                }
-            });
-        });
+        getAdmin()
     }
     else {
         window.open('/admin/page-error-400.html')
     }
 });
+
+function getAdmin() {
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:3333/api/admins/home",
+        headers: {
+            token: 'Bearer ' + localStorage.getItem("accessAdminToken"),
+        },
+        success: function (data) {
+            haveAdminLogin(data)
+            logOut()
+            getCodes()
+            handleAddCode()
+        }
+    });
+}
+
+function getCodes() {
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:3333/api/code/show/",
+        headers: {
+            token: 'Bearer ' + localStorage.getItem("accessAdminToken"),
+        },
+        success: function (data) {
+            renderCodes(data)
+        }
+    });
+}
+function handleAddCode() {
+    $(".btn-add").click(function (e) {
+        const code = document.querySelector('#code').value
+        const discount = document.querySelector('#discount').value
+        const number = document.querySelector('#number').value
+        e.preventDefault();
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:3333/api/code/create",
+            data: {
+                code,
+                discount,
+                number
+            },
+            headers: {
+                token: 'Bearer ' + localStorage.getItem("accessAdminToken"),
+            },
+            dataType: "json",
+            success: function (data) {
+                successFunction(data)
+            },
+            error: function (data) {
+                const errors = JSON.parse(data.responseText).errors
+                errorFunction(errors[0].msg)
+            }
+        });
+    });
+}
+
 function logOut() {
     //-------log out--------------
     $('.log-out__btn').click(function (e) {
@@ -84,19 +99,22 @@ function haveAdminLogin(data) {
 }
 
 
-function renderSales(data) {
+function renderCodes(data) {
     const bodyTable = document.querySelector('.table-codes .table tbody')
     var htmls = ''
     var count = 1
     for (var code of data.codes) {
         htmls += `
       <tr>
-        <th>${count}</th>
-        <td>${code.code}</td>
-        <td>${code.id}
-        </td>
-        <td>${code.user_id}</td>
-        <td>${code.createdAt}</td>
+      <th class = "count">
+      <p>${count} </p>
+      </th>
+      <td class = "code-id">${code.id}</td>
+      <td class = "code">${code.code}</td>
+      <td class = "code-discount">${code.discount}
+      </td>
+      <td>${code.createdAt}</td>
+      <td class = "code-quantity">${code.number}</td>
       </tr>
           `
         count++
@@ -104,6 +122,8 @@ function renderSales(data) {
     bodyTable.innerHTML = htmls
 
 }
+
+
 
 
 // ------toast---------------

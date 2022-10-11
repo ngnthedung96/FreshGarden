@@ -1,23 +1,26 @@
 $(document).ready(function () {
   if (localStorage.getItem("accessAdminToken")) {
-    $.ajax({
-      type: "GET",
-      url: "http://localhost:3333/api/admins/showusers",
-      headers: {
-        token: 'Bearer ' + localStorage.getItem("accessAdminToken"),
-      },
-      success: function (data) {
-        logOut()
-        renderUsers(data)
-        haveAdminLogin(data)
-      }
-    });
+    getAdmins()
   }
   else {
     window.open('/admin/page-error-400.html')
   }
 });
 
+function getAdmins() {
+  $.ajax({
+    type: "GET",
+    url: "http://localhost:3333/api/admins/showusers",
+    headers: {
+      token: 'Bearer ' + localStorage.getItem("accessAdminToken"),
+    },
+    success: function (data) {
+      logOut()
+      renderUsers(data)
+      haveAdminLogin(data)
+    }
+  });
+}
 
 function renderUsers(data) {
   const bodyTable = document.querySelector('.table-users .table tbody')
